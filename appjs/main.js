@@ -8,7 +8,7 @@
             controller: 'LoginController',
             controllerAs : 'logingCtrl'
         }).when('/chat', {
-            templateUrl: 'pages/chat.html',
+            templateUrl: 'pages/main.html',
             controller: 'ChatController',
             controllerAs : 'chatCtrl'
         }).otherwise({

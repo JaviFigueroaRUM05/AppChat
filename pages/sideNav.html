@@ -1,0 +1,17 @@
+<div ng-controller="GroupController as groupCtrl" class="sideBarContainer">
+<div class="sidebar">
+  <div class="sidebar-nav">
+    <ul class="nav">
+      <li class="nav-title"> Groups </li>
+
+      <li ng-repeat="group in groupCtrl.groupList" class="nav-item">
+        <a class="nav-link">
+          <img ng-src="{{ group.gPhoto }}" class="avatar img-avatar" ></img>
+          {{ group.gName }} </a>
+
+        </li>
+    </ul>
+  </div>
+
+</div>
+</div>
