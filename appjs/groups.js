@@ -9,7 +9,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
             thisGroupCtrl.groupList.push({"id": 1, "gName" : "The Cuchifrits", "gPhoto" : "media/group_pics/corgi.jpg"});
-            thisGroupCtrl.groupList.push({"id": 2, "gName": "Hello World", "gPhoto": "media/group_pics/succulenticon.jpg"});
+            thisGroupCtrl.groupList.push({"id": 2, "gName": "Hello World", "gPhoto": "media/profile_pics/succulents_profile.png"});
 
             $log.error("Message Loaded: ", JSON.stringify(thisGroupCtrl.groupList));
         };

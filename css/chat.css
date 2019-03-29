@@ -175,20 +175,6 @@
     text-decoration: none;
   }
 
-  .navbar-nav {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-    background-color: #
-  }
-
   .navbar-nav .nav-link {
     padding-right: 0;
     padding-left: 0;
