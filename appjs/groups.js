@@ -23,5 +23,23 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             thisGroupCtrl.newText = "";
         };
 
-        this.loadMessages();
+        this.user = 1
+        $http({
+          method: 'GET',
+          url: 'http://127.0.0.1:5000/groups',
+      //    data: JSON.stringify({ "uid": 2 }),
+          headers: {'uid': 1}
+        }).then(function(groups){
+          var response = groups.data
+          for(group in response){
+            thisGroupCtrl.groupList.push(response[group]);
+          }
+        });
+
+        this.see_console = function(){
+          console.log(thisGroupCtrl.groupList);
+        };
+
+        this.see_console();
+    //    this.loadMessages();
 }]);
