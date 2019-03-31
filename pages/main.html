@@ -1,8 +1,11 @@
 
   <ng-include src="'pages/navBarHeader.html'"></ng-include>
-
   <div class="wrapper">
-    <ng-include src="'pages/sideNav.html'"></ng-include>
+    <div class="wrapper" ng-controller="GroupController as groupCtrl" >
+      <ng-include src="'pages/sideNav.html'"></ng-include>
+      <ng-include src="'pages/groupInfoBar.html'"></ng-include>
+    </div>
+
     <div class="MessageContainer">
       <ng-include src="'pages/chat.html'"></ng-include>
     </div>

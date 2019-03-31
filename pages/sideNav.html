@@ -1,8 +1,9 @@
-<div ng-controller="GroupController as groupCtrl" class="sideBarContainer">
+<div  class="sideBarContainer">
 <div class="sidebar">
   <div class="sidebar-nav">
     <ul class="nav">
-      <li class="nav-item-add" >
+      <li class="nav-item-add" ng-click="groupCtrl.createGroup()" >
+
         <a class="nav-link">
            Add Group
           <i class="fas fa-plus-square"> </i>  </a>
@@ -11,10 +12,12 @@
         <li class="nav-title"> Groups
         </li>
 
-        <li ng-repeat="group in groupCtrl.groupList" class="nav-item">
+        <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID)">
           <a class="nav-link">
             <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
-              {{ group.gName }} </a>
+              {{ group.gName }}
+              <i class="fas fa-angle-right" ng-click="groupCtrl.showGroupInfo(group.gName, group.GID)"></i>
+            </a>
         </li>
     </ul>
   </div>

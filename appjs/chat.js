@@ -32,6 +32,19 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             $log.error("Message Loaded: ", JSON.stringify(thisMessageCtrl.messageList));
         };
 
+        this.showPostsInGroup = function(gid){
+          $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:5000/groups/' + gid + '/posts'
+          }).then(function(response){
+            thisMessageCtrl.messageList.length = 0
+            var posts = response.data.Posts
+            for (item in posts){
+              thisMessageCtrl.messageList.push(posts[item])
+            }
+          });
+        }
+
         this.postMsg = function(){
             var msg = thisMessageCtrl.newText;
             // Need to figure out who I am
@@ -46,8 +59,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         $http({
           method: 'GET',
           url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.group + '/posts'
-      //    data: JSON.stringify({ "uid": 2 }),
-    }).then(function(response){
+        }).then(function(response){
           var posts = response.data.Posts
           for (item in posts){
             thisMessageCtrl.messageList.push(posts[item])
