@@ -18,7 +18,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             var post = thisMessageCtrl.messageList[m];
             if(post.postid == op) {
               return  ""+ post.uname + " : " + post.message +"";
-        //    console.log("found it");
             }
           }
         };

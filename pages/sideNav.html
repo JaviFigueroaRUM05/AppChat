@@ -2,13 +2,19 @@
 <div class="sidebar">
   <div class="sidebar-nav">
     <ul class="nav">
-      <li class="nav-title"> Groups </li>
-
-      <li ng-repeat="group in groupCtrl.groupList" class="nav-item">
+      <li class="nav-item-add" >
         <a class="nav-link">
-          <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
-          {{ group.gName }} </a>
+           Add Group
+          <i class="fas fa-plus-square"> </i>  </a>
+        </li>
 
+        <li class="nav-title"> Groups
+        </li>
+
+        <li ng-repeat="group in groupCtrl.groupList" class="nav-item">
+          <a class="nav-link">
+            <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
+              {{ group.gName }} </a>
         </li>
     </ul>
   </div>
