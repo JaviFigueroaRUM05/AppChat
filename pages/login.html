@@ -15,8 +15,8 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" ng-click="loginCtrl.formSubmit()" class="btn btn-success">Login</button>
-                                <span class="text-danger" > {{ error }} </span>
+                                <button type="submit" ng-click="loginCtrl.login()" class="btn btn-success">Login</button>
+                                <span class="text-danger" >{{loginCtrl.$scope.error}} </span>
                             </div>
                         </div>
                     </form>
