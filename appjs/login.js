@@ -1,14 +1,8 @@
-angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$window',
-    function($http, $log, $scope, $window) {
+angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$window', "$cookies",
+    function($http, $log, $scope, $window, $cookies) {
         var thisCtrl = this;
         this.Error = "";
         this.uid= null;
-
-
-
-
-
-//TODO Look into catch, why if we get the error it wont go through the thens.
 
        this.login = function(){
         $http({
@@ -16,22 +10,27 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
           url: 'http://127.0.0.1:5000/user/login',
           data: JSON.stringify({ "email": $scope.username,
                                  "password": $scope.password})
-        }).then(
-            function(response){
-                var response_json = response.data
-                if (response_json.hasOwnProperty('Error')){
-                    thisCtrl.Error = response_json.Error;}
 
-                else{thisCtrl.uid = response_json.uid;}
+        }).then( // On success.
+            function(success_response){
+                thisCtrl.uid = success_response.data.uid;
+
+        }, function (error_response){ //On Error
+                console.log(error_response);
+                if (error_response.data.hasOwnProperty('Error')){
+                    thisCtrl.Error = error_response.data.Error;
+                    console.log(thisCtrl.Error);}
+                else{
+                    console.log(error_response);}
         }).then (
             function(){
                 if(thisCtrl.uid != null){
                     $scope.error='';
                     $scope.username='';
                     $scope.password='';
+                    $cookies.put('uid', thisCtrl.uid);
+                    //console.log($cookies.get('uid'));
                     $window.location.href = '/AppChat/index.html#!/chat';
-                } else{$scope.error = 'Incorrect username/password!';
         }}).catch(angular.noop);
-       }
-
+       };
 }]);
