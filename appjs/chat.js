@@ -1,29 +1,65 @@
 angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope',
     function($http, $log, $scope) {
-        var thisCtrl = this;
+        var thisMessageCtrl = this;
 
         this.messageList = [];
         this.counter  = 2;
         this.newText = "";
+        this.reply = "";
+
+        this.isReply = function(op){
+          if(op){
+            return true;
+          }
+        };
+
+        this.lookUpOriginalPost = function(op){
+          for(m in thisMessageCtrl.messageList){
+            var post = thisMessageCtrl.messageList[m];
+            if(post.postid == op) {
+              return  ""+ post.uname + " : " + post.message +"";
+        //    console.log("found it");
+            }
+          }
+        };
 
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
-            thisCtrl.messageList.push({"id": 1, "text": "Hola Mi Amigo", "author" : "Bob",
+            thisMessageCtrl.messageList.push({"id": 1, "text": "Hola Mi Amigo", "author" : "Bob",
             "like" : 4, "nolike" : 1});
-            thisCtrl.messageList.push({"id": 2, "text": "Hello World", "author": "Joe",
+            thisMessageCtrl.messageList.push({"id": 2, "text": "Hello World", "author": "Joe",
                 "like" : 11, "nolike" : 12});
 
-            $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
+            $log.error("Message Loaded: ", JSON.stringify(thisMessageCtrl.messageList));
         };
 
         this.postMsg = function(){
-            var msg = thisCtrl.newText;
+            var msg = thisMessageCtrl.newText;
             // Need to figure out who I am
             var author = "Me";
-            var nextId = thisCtrl.counter++;
-            thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
-            thisCtrl.newText = "";
+            var nextId = thisMessageCtrl.counter++;
+            thisMessageCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
+            thisMessageCtrl.newText = "";
         };
 
-        this.loadMessages();
+        this.group = 2;
+
+        $http({
+          method: 'GET',
+          url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.group + '/posts'
+      //    data: JSON.stringify({ "uid": 2 }),
+    }).then(function(response){
+          var posts = response.data.Posts
+          for (item in posts){
+            thisMessageCtrl.messageList.push(posts[item])
+          }
+        });
+
+       this.see_console = function(){
+          console.log(thisMessageCtrl.messageList);
+        };
+
+        this.see_console();
+
+      //  this.loadMessages();
 }]);
