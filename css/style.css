@@ -10493,7 +10493,44 @@ base-chart.chart {
       flex-direction: column;
   padding: 0;
   color: #fff;
-  background: #29363d; }
+  background: #29363d;
+  -webkit-transition: right .5s ease;
+  transition: all .3s ease-in-out;
+
+}
+
+  #nav-toggle {
+  width: 30px;
+  height: 25px;
+  margin-left: 15px;
+  top: 20px;
+  float: left;
+  position: absolute;
+  display: block;
+  padding-top: 20px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.ng-hide-remove {
+  animation(0.5s slideIn ease);
+}
+
+.ng-hide-add {
+  animation(0.5s slideOut ease);
+  display:block!important;
+}
+
+@keyframes slideIn {
+  0% {left: -270px;}
+  100% {left: 0px;}
+}
+
+@keyframes slideOut {
+  0% {left: 0px;}
+  100% {left: -270px;}
+}
+
   .sidebar .sidebar-close {
     position: absolute;
     right: 0;
@@ -10532,6 +10569,7 @@ base-chart.chart {
         flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
+    max-height: 580px;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     width: 225px; }
     .sidebar .sidebar-nav::-webkit-scrollbar {
@@ -10556,13 +10594,59 @@ base-chart.chart {
         flex-direction: column;
     min-height: 100%; }
   .sidebar .nav-title {
+    display: flex;
+    flex-direction: row;
     padding: 0.75rem 1rem;
     font-size: 11px;
     font-weight: 600;
     color: #c2cfd6;
     text-transform: uppercase; }
+    .sidebar .nav-title-group {
+      display: inline-block;
+      padding: 0.75rem 1rem;
+      font-size: 14px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 600;
+      color: #c2cfd6;  }
   .sidebar .nav-divider, .sidebar .divider {
     height: 10px; }
+    .sidebar .nav-item-add {
+      position: relative;
+      margin: 0;
+      font-size: 20px;
+      text-align:center;
+      background-color: #4dbd74;
+      transition: background .3s ease-in-out; }
+      .sidebar .nav-item-user {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin: 0;
+        height: 100px;
+        font-size: 20px;
+        text-align:center;
+        transition: background .3s ease-in-out; }
+      .sidebar .nav-item-add span{
+        vertical-align: middle;}
+      .sidebar .nav-item-add i {
+          display: inline-block;
+          width: 35px;
+          height: 35px;
+          margin: 0.5px 0.5rem 0 0;
+          font-size: 20px;
+          color: #536c79;
+          text-align: center; }
+
+        .sidebar .nav-item-user img {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100px;
+            height: 100px;
+            margin: 0.5px 0.5rem 0 .5rem;
+            font-size: 35px;
+            color: #536c79;
+            text-align: center; }
   .sidebar .nav-item {
     position: relative;
     margin: 0;
@@ -10582,14 +10666,25 @@ base-chart.chart {
     color: #fff;
     text-decoration: none;
     background: transparent; }
-    .sidebar .nav-link i, .sidebar .nav-link img, .sidebar .navbar .dropdown-toggle i, .navbar .sidebar .dropdown-toggle i {
+    .sidebar .nav-link i,  .sidebar .nav-item-add i, .sidebar .navbar .dropdown-toggle i, .navbar .sidebar .dropdown-toggle i {
       display: inline-block;
-      width: 50px;
-      height: 50px;
-      margin: 0 0.5rem 0 0;
-      font-size: 14px;
+      width: 20px;
+      height: 20px;
+      padding-bottom: 1px;
+      margin: 0.5rem 0rem 0 1rem;
+      font-size: 20px;
+      float: right;
+      vertical-align: middle;
       color: #536c79;
       text-align: center; }
+      .sidebar .nav-link img {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin: 0.5px 0.5rem 0 0;
+        font-size: 35px;
+        color: #536c79;
+        text-align: center; }
     .sidebar .nav-link .badge, .sidebar .navbar .dropdown-toggle .badge, .navbar .sidebar .dropdown-toggle .badge {
       float: right;
       margin-top: 2px; }
@@ -10958,7 +11053,7 @@ base-chart.chart {
       border-left: 0 !important; }
       .sidebar-minimized .sidebar .nav-link i, .sidebar-minimized .sidebar .navbar .dropdown-toggle i, .navbar .sidebar-minimized .sidebar .dropdown-toggle i {
         display: block;
-        float: left;
+        float: right;
         width: 50px;
         font-size: 18px; }
       .sidebar-minimized .sidebar .nav-link .badge, .sidebar-minimized .sidebar .navbar .dropdown-toggle .badge, .navbar .sidebar-minimized .sidebar .dropdown-toggle .badge {
