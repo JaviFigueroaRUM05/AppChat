@@ -5,17 +5,26 @@
             <ul class="nav">
               <li class="nav-item-user" >
                 <a>
-                <img ng-src="{{ group.gPhoto || 'media/profile_pics/corgi-monocle.jpg' }}" class="avatar img-avatar" ></img>
-                  </a>
-
+                <img ng-src="{{ group.gPhoto || 'media/profile_pics/corgi-monocle.jpg' }}"
+                     class="avatar img-avatar" ></img>
+                </a>
                 <a class="nav-title">{{userNavCtrl.fullName}}</a>
-                  <a class="nav-title">Username: {{userNavCtrl.username}}</a>
-                  <a class="nav-title">E-mail: {{userNavCtrl.email}}</a>
-                  <a class="nav-title">Phone: {{userNavCtrl.phone}}</a>
+                <a class="nav-title">Username: {{userNavCtrl.username}}</a>
+                <a class="nav-title">E-mail: {{userNavCtrl.email}}</a>
+                <a class="nav-title">Phone: {{userNavCtrl.phone}}</a>
                 </li>
-
             </ul>
           </div>
-
+          <div class="sidebar-nav">
+              <li class="nav-title-group">Your contacts</li>
+            <ul class="nav">
+              <li ng-repeat="contact in userNavCtrl.contactList" class="nav-item">
+                <a class="nav-link">
+                    <img ng-src="media/profile_pics/corgi-monocle.jpg"
+                         class="avatar img-avatar" ></img>
+                    {{ contact.uname }} </a>
+              </li>
+            </ul>
+          </div>
         </div>
     </div>
