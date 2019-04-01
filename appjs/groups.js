@@ -6,7 +6,8 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.groupUsersList = [];
         this.counter  = 2;
         this.groupName= " ... ";
-        this.toggleGroupInfoBar = false;
+        this.isBarToggled = false;
+        this.currentGid = 0;
 
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
@@ -16,10 +17,21 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             $log.error("Message Loaded: ", JSON.stringify(thisGroupCtrl.groupList));
         };
 
-        this.toggleBar = function(){
-            thisGroupCtrl.toggleGroupInfoBar = !thisGroupCtrl.toggleGroupInfoBar;
-            console.log(thisGroupCtrl.toggleGroupInfoBar);
-          //  groupCtrl.showGroupInfo(group.gName, group.GID)
+        this.toggleBar = function(gname, gid){
+            if(thisGroupCtrl.isBarToggled==false){
+                thisGroupCtrl.currentGid = gid;
+                thisGroupCtrl.isBarToggled = !thisGroupCtrl.isBarToggled;
+                thisGroupCtrl.showGroupInfo(gname, gid);
+            }
+            else {
+              if(thisGroupCtrl.currentGid == gid){
+                thisGroupCtrl.isBarToggled = !thisGroupCtrl.isBarToggled;
+              }
+              else{
+                thisGroupCtrl.currentGid = gid;
+                thisGroupCtrl.showGroupInfo(gname, gid);
+              }
+          }
           };
 
         this.showGroupInfo = function(groupName, gid){
