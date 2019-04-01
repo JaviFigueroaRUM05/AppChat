@@ -3,11 +3,10 @@
 <div class="sidebar">
   <div class="sidebar-nav">
     <ul class="nav">
-      <li class="nav-item-add" ng-click="groupCtrl.createGroup()" >
 
-        <a class="nav-link">
-           Add Group
-          <i class="fas fa-plus-square"> </i>  </a>
+        <li class="nav-title-add" ng-click="groupCtrl.createGroup()">
+          <span class="nav-title-add"> Add Group </span>
+        <i class="fas fa-plus-square"></i>
         </li>
 
         <li class="nav-title"> Groups
@@ -17,7 +16,7 @@
           <a class="nav-link">
             <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
               {{ group.gName }}
-              <i class="fas fa-angle-right" ng-click="groupCtrl.toggleBar()"></i>
+              <i class="fas fa-angle-right" ng-click="groupCtrl.toggleBar(group.gName, group.GID)"></i>
             </a>
         </li>
     </ul>
@@ -26,13 +25,12 @@
 </div>
 </div>
 
-<div class="sideBarContainer" ng-show="groupCtrl.toggleGroupInfoBar">
+<div class="sideBarContainer" ng-show="groupCtrl.isBarToggled">
 <div class="sidebar">
   <div class="sidebar-nav">
     <ul class="nav">
-      <li class="nav-item-user" >
-        <a>
-        <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
+        <li class="nav-item-user" >
+          <a>  <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
           </a>
         </li>
 
@@ -40,16 +38,24 @@
          <span>{{groupCtrl.groupName}} </span>
           </li>
 
-        <li class="nav-title"> Participants
-        </li>
+        <li class="nav-title"> Participants  </li>
 
+        <li class="nav-title-add"> <span class="nav-title-add"> Add Participants </span>
+          <i class="fas fa-plus-square"></i>
+        </li>
+    </ul>
+
+  </div>
+        <div class="sidebar-nav">
+          <ul class="nav">
         <li ng-repeat="user in groupCtrl.groupUsersList" class="nav-item">
           <a class="nav-link">
             <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
               {{ user.uname }} </a>
         </li>
     </ul>
-  </div>
+</div>
+
 
 </div>
 </div>

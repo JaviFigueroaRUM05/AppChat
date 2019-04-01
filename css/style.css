@@ -10565,8 +10565,8 @@ base-chart.chart {
       color: rgba(255, 255, 255, 0.7); }
   .sidebar .sidebar-nav {
     position: relative;
-    -ms-flex: 1;
-        flex: 1;
+    -ms-flex: 0;
+        flex: 0;
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 580px;
@@ -10592,7 +10592,8 @@ base-chart.chart {
     width: 225px;
     -ms-flex-direction: column;
         flex-direction: column;
-    min-height: 100%; }
+    overflow-y: auto;
+    min-height: 0; }
   .sidebar .nav-title {
     display: flex;
     flex-direction: row;
@@ -10601,6 +10602,21 @@ base-chart.chart {
     font-weight: 600;
     color: #c2cfd6;
     text-transform: uppercase; }
+    .sidebar .nav-title-add {
+      display: inline-block;
+      padding: 0.75rem 1rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+      background-color: #4dbd74;
+      transition: background .3s ease-in-out; }
+      .sidebar .nav-title-add span {
+        display: inline-block;
+        padding: 0.75rem 1rem;
+        background-color: transparent;
+      }
     .sidebar .nav-title-group {
       display: inline-block;
       padding: 0.75rem 1rem;
@@ -10629,21 +10645,13 @@ base-chart.chart {
         transition: background .3s ease-in-out; }
       .sidebar .nav-item-add span{
         vertical-align: middle;}
-      .sidebar .nav-item-add i {
-          display: inline-block;
-          width: 35px;
-          height: 35px;
-          margin: 0.5px 0.5rem 0 0;
-          font-size: 20px;
-          color: #536c79;
-          text-align: center; }
 
         .sidebar .nav-item-user img {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
             height: 100px;
-            margin: 0.5px 0.5rem 0 .5rem;
+            margin: 0.5px 0.5rem 0 0.5rem;
             font-size: 35px;
             color: #536c79;
             text-align: center; }
@@ -10666,12 +10674,11 @@ base-chart.chart {
     color: #fff;
     text-decoration: none;
     background: transparent; }
-    .sidebar .nav-link i,  .sidebar .nav-item-add i, .sidebar .navbar .dropdown-toggle i, .navbar .sidebar .dropdown-toggle i {
+    .sidebar .nav-link i,  .sidebar .nav-item-add i, .sidebar .nav-title-add i, .sidebar .navbar .dropdown-toggle i, .navbar .sidebar .dropdown-toggle i {
       display: inline-block;
       width: 20px;
       height: 20px;
-      padding-bottom: 1px;
-      margin: 0.5rem 0rem 0 1rem;
+      margin: 0.5rem ;
       font-size: 20px;
       float: right;
       vertical-align: middle;
@@ -10693,10 +10700,10 @@ base-chart.chart {
       background: #33444c; }
       .sidebar .nav-link.active i, .sidebar .navbar .active.dropdown-toggle i, .navbar .sidebar .active.dropdown-toggle i {
         color: #20a8d8; }
-    .sidebar .nav-link:hover, .sidebar .navbar .dropdown-toggle:hover, .navbar .sidebar .dropdown-toggle:hover {
+    .sidebar .nav-link:hover, .sidebar .nav-title-add:hover, .sidebar .navbar .dropdown-toggle:hover, .navbar .sidebar .dropdown-toggle:hover {
       color: #fff;
       background: #20a8d8; }
-      .sidebar .nav-link:hover i, .sidebar .navbar .dropdown-toggle:hover i, .navbar .sidebar .dropdown-toggle:hover i {
+      .sidebar .nav-link:hover i, .sidebar .nav-title-add:hover i, .sidebar .navbar .dropdown-toggle:hover i, .navbar .sidebar .dropdown-toggle:hover i {
         color: #fff; }
       .sidebar .nav-link:hover.nav-dropdown-toggle::before, .sidebar .navbar .dropdown-toggle:hover.nav-dropdown-toggle::before, .navbar .sidebar .dropdown-toggle:hover.nav-dropdown-toggle::before {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 14'%3E%3Cpath fill='%23fff' d='M9.148 2.352l-4.148 4.148 4.148 4.148q0.148 0.148 0.148 0.352t-0.148 0.352l-1.297 1.297q-0.148 0.148-0.352 0.148t-0.352-0.148l-5.797-5.797q-0.148-0.148-0.148-0.352t0.148-0.352l5.797-5.797q0.148-0.148 0.352-0.148t0.352 0.148l1.297 1.297q0.148 0.148 0.148 0.352t-0.148 0.352z'/%3E%3C/svg%3E"); }
