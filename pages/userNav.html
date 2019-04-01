@@ -1,0 +1,21 @@
+
+    <div class="sideBarContainer" ng-show="userNavCtrl.userNavBarToggled">
+        <div class="sidebar">
+          <div class="sidebar-nav">
+            <ul class="nav">
+              <li class="nav-item-user" >
+                <a>
+                <img ng-src="{{ group.gPhoto || 'media/profile_pics/corgi-monocle.jpg' }}" class="avatar img-avatar" ></img>
+                  </a>
+
+                <a class="nav-title">{{userNavCtrl.fullName}}</a>
+                  <a class="nav-title">Username: {{userNavCtrl.username}}</a>
+                  <a class="nav-title">E-mail: {{userNavCtrl.email}}</a>
+                  <a class="nav-title">Phone: {{userNavCtrl.phone}}</a>
+                </li>
+
+            </ul>
+          </div>
+
+        </div>
+    </div>
