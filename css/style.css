@@ -10493,7 +10493,44 @@ base-chart.chart {
       flex-direction: column;
   padding: 0;
   color: #fff;
-  background: #29363d; }
+  background: #29363d;
+  -webkit-transition: right .5s ease;
+  transition: all .3s ease-in-out;
+
+}
+
+  #nav-toggle {
+  width: 30px;
+  height: 25px;
+  margin-left: 15px;
+  top: 20px;
+  float: left;
+  position: absolute;
+  display: block;
+  padding-top: 20px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.ng-hide-remove {
+  animation(0.5s slideIn ease);
+}
+
+.ng-hide-add {
+  animation(0.5s slideOut ease);
+  display:block!important;
+}
+
+@keyframes slideIn {
+  0% {left: -270px;}
+  100% {left: 0px;}
+}
+
+@keyframes slideOut {
+  0% {left: 0px;}
+  100% {left: -270px;}
+}
+
   .sidebar .sidebar-close {
     position: absolute;
     right: 0;

@@ -1,3 +1,4 @@
+<div class="wrapper">
 <div  class="sideBarContainer">
 <div class="sidebar">
   <div class="sidebar-nav">
@@ -16,11 +17,40 @@
           <a class="nav-link">
             <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
               {{ group.gName }}
-              <i class="fas fa-angle-right" ng-click="groupCtrl.showGroupInfo(group.gName, group.GID)"></i>
+              <i class="fas fa-angle-right" ng-click="groupCtrl.toggleBar()"></i>
             </a>
         </li>
     </ul>
   </div>
 
+</div>
+</div>
+
+<div class="sideBarContainer" ng-show="groupCtrl.toggleGroupInfoBar">
+<div class="sidebar">
+  <div class="sidebar-nav">
+    <ul class="nav">
+      <li class="nav-item-user" >
+        <a>
+        <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
+          </a>
+        </li>
+
+        <li class="nav-title-group">
+         <span>{{groupCtrl.groupName}} </span>
+          </li>
+
+        <li class="nav-title"> Participants
+        </li>
+
+        <li ng-repeat="user in groupCtrl.groupUsersList" class="nav-item">
+          <a class="nav-link">
+            <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
+              {{ user.uname }} </a>
+        </li>
+    </ul>
+  </div>
+
+</div>
 </div>
 </div>

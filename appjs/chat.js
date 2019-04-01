@@ -13,6 +13,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         };
 
+
         this.lookUpOriginalPost = function(op){
           for(m in thisMessageCtrl.messageList){
             var post = thisMessageCtrl.messageList[m];
