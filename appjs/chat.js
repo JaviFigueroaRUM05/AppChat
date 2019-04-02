@@ -6,6 +6,11 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.counter  = 2;
         this.newText = "";
         this.reply = "";
+        this.isToggled = false;
+
+        this.toggleModal = function(){
+          thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
+        };
 
         this.isReply = function(op){
           if(op){
@@ -51,7 +56,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             // Need to figure out who I am
             var author = "Me";
             var nextId = thisMessageCtrl.counter++;
-            thisMessageCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
+            thisMessageCtrl.messageList.unshift({"postid": nextId, "message" : msg, "uname" : author, "like" : 0, "dislike" : 0});
             thisMessageCtrl.newText = "";
         };
 

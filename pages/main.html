@@ -1,13 +1,17 @@
-<div ng-controller="UserNavController as userNavCtrl" >
+
   <ng-include src="'pages/navBarHeader.html'"></ng-include>
   <div class="wrapper">
     <div ng-controller="GroupController as groupCtrl" >
       <ng-include src="'pages/sideNav.html'"></ng-include>
     </div>
+
+    <button class="btn btn-success" ng-click="chatCtrl.toggleModal()"></button>
+    <ng-include src="'pages/modal.html'"></ng-include>
+
     <div class="MessageContainer">
       <ng-include src="'pages/chat.html'"></ng-include>
     </div>
-    <ng-include src="'pages/userNav.html'"></ng-include>
+
+
+
   </div>
-  <ng-include src="pages/userModal.html"></ng-include>
-</div>
