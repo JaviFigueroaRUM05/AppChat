@@ -11033,6 +11033,7 @@ base-chart.chart {
       width: 50px; }
     .sidebar-minimized .sidebar .nav-divider, .sidebar-minimized .sidebar .divider,
     .sidebar-minimized .sidebar .nav-title,
+    .sidebar-minimized .sidebar .nav-title-add,
     .sidebar-minimized .sidebar .sidebar-footer,
     .sidebar-minimized .sidebar .sidebar-form,
     .sidebar-minimized .sidebar .sidebar-header {

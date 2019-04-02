@@ -3,7 +3,6 @@
 <div class="sidebar">
   <div class="sidebar-nav">
     <ul class="nav">
-
         <li class="nav-title-add" ng-click="groupCtrl.createGroup()">
           <span class="nav-title-add"> Add Group </span>
         <i class="fas fa-plus-square"></i>
@@ -48,7 +47,8 @@
   </div>
         <div class="sidebar-nav">
           <ul class="nav">
-        <li ng-repeat="user in groupCtrl.groupUsersList" class="nav-item">
+        <li ng-repeat="user in groupCtrl.groupUsersList" class="nav-item"
+            ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname)">
           <a class="nav-link">
             <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
               {{ user.uname }} </a>
@@ -59,4 +59,35 @@
 
 </div>
 </div>
-</div>
+
+
+<div ng-show="groupCtrl.isUserModalToggled">
+  <div class = "modal-backdrop">
+  <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+        aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+
+    <div class="modal-dialog modal-success" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"> User Information </h4>
+      </div>
+    <div class="modal-body">
+      <p> {{ groupCtrl.selected_u_uname }} </p>
+      <p> {{ groupCtrl.selected_u_fname }}  {{ groupCtrl.selected_u_lname }} </p>
+      <p> {{ groupCtrl.selected_u_email }} </p>
+      <p> {{ groupCtrl.selected_u_phone }} </p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" type="button"
+        data-dismiss="modal" ng-click="groupCtrl.isUserModalToggled = !groupCtrl.isUserModalToggled"> Close </button>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+  </div>
+  </div>
+  </div>
