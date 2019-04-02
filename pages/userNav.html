@@ -3,26 +3,34 @@
         <div class="sidebar">
           <div class="sidebar-nav">
             <ul class="nav">
+                <li class="nav-title"> Profile </li>
               <li class="nav-item-user" >
                 <a>
                 <img ng-src="{{ group.gPhoto || 'media/profile_pics/corgi-monocle.jpg' }}"
                      class="avatar img-avatar" ></img>
-                </a>
-                <a class="nav-title">{{userNavCtrl.fullName}}</a>
-                <a class="nav-title">Username: {{userNavCtrl.username}}</a>
-                <a class="nav-title">E-mail: {{userNavCtrl.email}}</a>
-                <a class="nav-title">Phone: {{userNavCtrl.phone}}</a>
+                    </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-title">{{userNavCtrl.fullName}}</a>
+                    <a class="nav-title">Username: {{userNavCtrl.username}}</a>
+                    <a class="nav-title">E-mail: {{userNavCtrl.email}}</a>
+                    <a class="nav-title">Phone: {{userNavCtrl.phone}}</a>
+                </li>
+
+                <li class="nav-title"> Contacts </li>
             </ul>
           </div>
           <div class="sidebar-nav">
-              <li class="nav-title-group">Your contacts</li>
+
             <ul class="nav">
               <li ng-repeat="contact in userNavCtrl.contactList" class="nav-item">
                 <a class="nav-link">
                     <img ng-src="media/profile_pics/corgi-monocle.jpg"
                          class="avatar img-avatar" ></img>
                     {{ contact.uname }} </a>
+                  <a class="nav-title">Name: {{contact.first_name + " " + contact.last_name}}</a>
+                    <a class="nav-title">E-mail: {{contact.email}}</a>
+                    <a class="nav-title">Phone: {{contact.phone}}</a>
               </li>
             </ul>
           </div>
