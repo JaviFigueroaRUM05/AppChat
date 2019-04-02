@@ -6,10 +6,10 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.counter  = 2;
         this.newText = "";
         this.reply = "";
-        this.isToggled = false;
+        this.isUserModalToggled = false;
 
         this.toggleModal = function(){
-          thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
+          thisMessageCtrl.isUserModalToggled = !thisMessageCtrl.isUserModalToggled;
         };
 
         this.isReply = function(op){
@@ -17,7 +17,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             return true;
           }
         };
-
 
         this.lookUpOriginalPost = function(op){
           for(m in thisMessageCtrl.messageList){
@@ -77,6 +76,4 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.see_console();
-
-      //  this.loadMessages();
 }]);
