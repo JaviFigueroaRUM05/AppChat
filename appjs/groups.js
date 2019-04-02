@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scope',
-    function($http, $log, $scope) {
+angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scope', '$cookies',
+    function($http, $log, $scope, $cookies) {
         var thisGroupCtrl = this;
 
         this.groupList = [];
@@ -98,7 +98,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           method: 'GET',
           url: 'http://127.0.0.1:5000/groups',
       //    data: JSON.stringify({ "uid": 2 }),
-          headers: {'Authorization': 1}
+          headers: {'Authorization': $cookies.get('uid')}
         }).then(function(groups){
           var response = groups.data
           for(group in response){
