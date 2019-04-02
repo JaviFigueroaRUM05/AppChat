@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope',
-    function($http, $log, $scope) {
+angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', '$cookies',
+    function($http, $log, $scope, $cookies) {
         var thisMessageCtrl = this;
 
         this.messageList = [];
@@ -8,6 +8,11 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.reply = "";
         this.isToggled = false;
         this.userNavBarToggled = false;
+
+         this.fullName = "";
+        this.username = "";
+        this.email='';
+        this.phone='';
 
         this.toggleModal = function(){
           thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
@@ -19,9 +24,26 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         };
 
+
+         this.getUserInfo = function(){
+            $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:5000/user/uid='+ $cookies.get('uid')
+          }).then(
+                function(success_response){
+                    var response_data = success_response.data;
+                    console.log(response_data);
+                    thisMessageCtrl.fullName = response_data.first_name + " " + response_data.last_name;
+                    thisMessageCtrl.username = response_data.uname;
+                    thisMessageCtrl.email = response_data.email;
+                    thisMessageCtrl.phone = response_data.phone;
+                }
+          )
+       };
+
          this.toggleUserNavBar = function(){
             thisMessageCtrl.userNavBarToggled = !thisMessageCtrl.userNavBarToggled;
-            console.log(thisCtrl.userNavBarToggled);
+            console.log(thisMessageCtrl.userNavBarToggled);
           //  groupCtrl.showGroupInfo(group.gName, group.GID)
           };
 
@@ -83,6 +105,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.see_console();
+        this.getUserInfo();
 
       //  this.loadMessages();
 }]);
