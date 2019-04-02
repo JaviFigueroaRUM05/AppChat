@@ -2,7 +2,7 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
     function($http, $log, $scope, $window, $cookies, $mdSidenav) {
         var thisCtrl = this;
 
-        this.userNavBarToggled = false;
+
         this.fullName = "";
         this.username = "";
         this.email='';
@@ -19,11 +19,11 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
 
 
 
-      this.toggleUserNavBar = function(){
+     /* this.toggleUserNavBar = function(){
             thisCtrl.userNavBarToggled = !thisCtrl.userNavBarToggled;
             console.log(thisCtrl.userNavBarToggled);
           //  groupCtrl.showGroupInfo(group.gName, group.GID)
-          };
+          };*/
 
        this.getUserInfo = function(){
             $http({

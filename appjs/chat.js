@@ -7,6 +7,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.newText = "";
         this.reply = "";
         this.isToggled = false;
+        this.userNavBarToggled = false;
 
         this.toggleModal = function(){
           thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
@@ -18,6 +19,11 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         };
 
+         this.toggleUserNavBar = function(){
+            thisMessageCtrl.userNavBarToggled = !thisMessageCtrl.userNavBarToggled;
+            console.log(thisCtrl.userNavBarToggled);
+          //  groupCtrl.showGroupInfo(group.gName, group.GID)
+          };
 
         this.lookUpOriginalPost = function(op){
           for(m in thisMessageCtrl.messageList){
