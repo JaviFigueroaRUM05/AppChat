@@ -6,11 +6,10 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.counter  = 2;
         this.newText = "";
         this.reply = "";
-        this.isUserModalToggled = false;
-
-        this.toggleModal = function(){
-          thisMessageCtrl.isUserModalToggled = !thisMessageCtrl.isUserModalToggled;
-        };
+        this.isPostModalToggled = false;
+        this.activeGroup = "";
+        this.postInformation = [];
+        this.postUserReaction = [];
 
         this.isReply = function(op){
           if(op){
@@ -27,6 +26,31 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         };
 
+        this.togglePostModal = function(postid){
+          if(thisMessageCtrl.isPostModalToggled == false){
+            thisMessageCtrl.isPostModalToggled = !thisMessageCtrl.isPostModalToggled;
+            thisMessageCtrl.createPostModal(postid);
+          }
+          else {
+            thisMessageCtrl.isPostModalToggled = !thisMessageCtrl.isPostModalToggled;
+          }
+        };
+
+        this.createPostModal = function(postid){
+          $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + postid
+          }).then(function(response){
+            thisMessageCtrl.postInformation.length = 0;
+            thisMessageCtrl.postUserReaction.length = 0; 
+            thisMessageCtrl.postInformation.push(response.data.Post);
+            var postReactions = response.data.Reactions_Users;
+            for(user in postReactions){
+              thisMessageCtrl.postUserReaction.push(postReactions[user]);
+            }
+          });
+        };
+
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
             thisMessageCtrl.messageList.push({"id": 1, "text": "Hola Mi Amigo", "author" : "Bob",
@@ -37,7 +61,9 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             $log.error("Message Loaded: ", JSON.stringify(thisMessageCtrl.messageList));
         };
 
-        this.showPostsInGroup = function(gid){
+        this.showPostsInGroup = function(gid, postid){
+          thisMessageCtrl.activeGroup = gid;
+          console.log(thisMessageCtrl.activeGroup)
           $http({
             method: 'GET',
             url: 'http://127.0.0.1:5000/groups/' + gid + '/posts'
@@ -48,7 +74,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
               thisMessageCtrl.messageList.push(posts[item])
             }
           });
-        }
+        };
 
         this.postMsg = function(){
             var msg = thisMessageCtrl.newText;
@@ -71,9 +97,5 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         });
 
-       this.see_console = function(){
-          console.log(thisMessageCtrl.messageList);
-        };
 
-        this.see_console();
 }]);

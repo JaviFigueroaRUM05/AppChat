@@ -49,11 +49,6 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             thisGroupCtrl.selected_u_uname = uname;
           };
 
-          this.toggleUserNav = function(){
-            thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
-            console.log(thisGroupCtrl.isUserModalToggled);
-          };
-
         this.showUserModalInfo = function(email, fname, lname, phone, uname){
           if(thisGroupCtrl.isUserModalToggled == false){
             console.log(thisGroupCtrl.isUserModalToggled);
