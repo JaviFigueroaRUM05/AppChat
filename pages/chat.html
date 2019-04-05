@@ -7,14 +7,19 @@
             <!-- This card prodives space for the message and Like/dislike buttons -->
             <div class="row">
                 <div class="col s12 m5">
-                    <div class="card border-success" ng-click="chatCtrl.togglePostModal(m.postid)">
+                    <div class="card border-success" >
+
                         <div class="card-header">
                           <div ng-if="chatCtrl.isReply(m.original_post)" ng-init="post_info=chatCtrl.lookUpOriginalPost(m.original_post)">
                             <p> Reply to: {{ post_info }}  </p>
                             </div>
                             <!-- Card Title is the person who write the message -->
 
-                            <h5 class="card-title">{{m.uname}} <i class="fas fa-reply"></i></h5>
+                            <h4 class="card-title">
+                              {{m.uname}}</h4>
+                              <a class="icon">  <i ng-click="chatCtrl.togglePostModal(m.postid)" class="fas fa-ellipsis-h"></i></a>
+                              <a class="icon"> <i class="fas fa-reply"> </i> </a>
+
 
 
                             <!-- Here comes the message text -->

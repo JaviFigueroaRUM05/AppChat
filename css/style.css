@@ -2120,6 +2120,12 @@ fieldset:disabled a.btn {
         width: 50px;
         background-color: #4dbd74;
         border-color: #4dbd74; }
+        .btn-success-send-bubble .browse {
+          position:absolute;
+          opacity: 0;
+          height: 50px;
+          width: 50px;
+        }
 .btn-success {
   color: #fff;
   border-radius: 50%;
@@ -4339,6 +4345,7 @@ tbody.collapse.show {
   padding: 1.25rem; }
 
 .card-title {
+  display: inline-block;
   margin-bottom: 0.75rem; }
 
 .card-subtitle {
@@ -4357,19 +4364,21 @@ tbody.collapse.show {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
+  display: inline-block;
+  vertical-align: middle;
   background-color: #f0f3f5;
   border-bottom: 1px solid #c2cfd6; }
   .card-header + .list-group .list-group-item:first-child {
     border-top: 0; }
 
-    .card-header i{
+    .card-header .icon i{
       float:right;
+      margin: 5px;
       color: #4dbd74;
       font-size: 25px;
-    } .card-header:hover i{
+    } .card-header .icon:hover i{
       color: #3ea662;
     }
-
 
 .card-footer {
   display: inline-block;
@@ -10097,13 +10106,21 @@ base-chart.chart {
 .app-footer {
   display: -ms-flexbox;
   display: flex;
+  vertical-align: middle;
   flex-direction: row;
   -ms-flex-align: center;
       align-items: center;
-      height: 100px;
+      height: 75px;
+  color: rgba(255, 255, 255, 0.5);
   padding: 0 1rem;
   background: #29363d;
    }
+
+   .app-footer img {
+     height: 50px;
+     width: 50px;
+     margin: 7px;
+      }
 
 .row.row-equal {
   padding-right: 7.5px;
