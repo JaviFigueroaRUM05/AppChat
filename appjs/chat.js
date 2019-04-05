@@ -8,6 +8,8 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.reply = "";
         this.isPostModalToggled = false;
         this.activeGroup = "";
+        this.activeGroupName="";
+        this.activeGroupPhoto= "media/group_pics/succulenticon.jpg";
         this.postInformation = [];
         this.postUserReaction = [];
 
@@ -42,7 +44,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + postid
           }).then(function(response){
             thisMessageCtrl.postInformation.length = 0;
-            thisMessageCtrl.postUserReaction.length = 0; 
+            thisMessageCtrl.postUserReaction.length = 0;
             thisMessageCtrl.postInformation.push(response.data.Post);
             var postReactions = response.data.Reactions_Users;
             for(user in postReactions){
@@ -61,9 +63,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             $log.error("Message Loaded: ", JSON.stringify(thisMessageCtrl.messageList));
         };
 
-        this.showPostsInGroup = function(gid, postid){
+        this.showPostsInGroup = function(gid, gname, gphoto){
           thisMessageCtrl.activeGroup = gid;
+          thisMessageCtrl.activeGroupName = gname;
+
           console.log(thisMessageCtrl.activeGroup)
+          console.log(thisMessageCtrl.activeGroupPhoto)
           $http({
             method: 'GET',
             url: 'http://127.0.0.1:5000/groups/' + gid + '/posts'

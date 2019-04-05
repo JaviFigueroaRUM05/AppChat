@@ -11,7 +11,7 @@
         <li class="nav-title"> Groups
         </li>
 
-        <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID)">
+        <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID, group.gName, group.gPhoto)">
           <a class="nav-link">
             <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
               {{ group.gName }}
@@ -20,7 +20,6 @@
         </li>
     </ul>
   </div>
-
 </div>
 </div>
 
@@ -48,7 +47,7 @@
         <div class="sidebar-nav">
           <ul class="nav">
         <li ng-repeat="user in groupCtrl.groupUsersList" class="nav-item"
-            ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname)">
+            ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname)" >
           <a class="nav-link">
             <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
               {{ user.uname }} </a>
