@@ -99,10 +99,10 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             var pic = media.name;
             var msg = thisMessageCtrl.newText;
             // Need to figure out who I am
-            var author = "Me";
+            var author = thisMessageCtrl.username;
             console.log(media);
             var nextId = thisMessageCtrl.counter++;
-            thisMessageCtrl.messageList.push({"postid": nextId, "message" : msg, "uname" : author, "media": "media/group_pics/"+pic, "like" : 2, "dislike" : 3});
+            thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "media": "media/group_pics/"+pic, "like" : 2, "dislike" : 3});
             thisMessageCtrl.newText = "";
         };
 
@@ -119,6 +119,8 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                     thisMessageCtrl.username = response_data.uname;
                     thisMessageCtrl.email = response_data.email;
                     thisMessageCtrl.phone = response_data.phone;
+                }, function(error_response){
+                  console.error(error_response);
                 }
           )
        };
