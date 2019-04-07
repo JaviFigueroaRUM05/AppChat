@@ -1,12 +1,12 @@
 (function() {
 
-    var app = angular.module('AppChat',['ngRoute', 'ngFileUpload']);
+    var app = angular.module('AppChat',['ngRoute', 'ngFileUpload', 'ngCookies']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
         $routeProvider.when('/login', {
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
-            controllerAs : 'logingCtrl'
+            controllerAs : 'loginCtrl'
         }).when('/chat', {
             templateUrl: 'pages/main.html',
             controller: 'ChatController',

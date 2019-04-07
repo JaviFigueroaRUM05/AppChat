@@ -1,12 +1,12 @@
 angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$scope', '$window', "$cookies",
-    function($http, $log, $scope, $window, $cookies, $mdSidenav) {
+    function($http, $log, $scope, $window, $cookies) {
         var thisCtrl = this;
-
-
-        this.fullName = "";
-        this.username = "";
-        this.email='';
-        this.phone='';
+//
+//
+//        this.fullName = "";
+//        this.username = "";
+//        this.email='';
+//        this.phone='';
 
         this.contactList = [];
 
@@ -25,20 +25,20 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
           //  groupCtrl.showGroupInfo(group.gName, group.GID)
           };*/
 
-       this.getUserInfo = function(){
-            $http({
-            method: 'GET',
-            url: 'http://127.0.0.1:5000/user/uid='+ $cookies.get('uid')
-          }).then(
-                function(success_response){
-                var response_data = success_response.data;
-                thisCtrl.fullName = response_data.first_name + " " + response_data.last_name;
-                thisCtrl.username = response_data.uname;
-                thisCtrl.email = response_data.email;
-                thisCtrl.phone = response_data.phone;
-                }
-          )
-       };
+//       this.getUserInfo = function(){
+//            $http({
+//            method: 'GET',
+//            url: 'http://127.0.0.1:5000/user/uid='+ $cookies.get('uid')
+//          }).then(
+//                function(success_response){
+//                var response_data = success_response.data;
+//                thisCtrl.fullName = response_data.first_name + " " + response_data.last_name;
+//                thisCtrl.username = response_data.uname;
+//                thisCtrl.email = response_data.email;
+//                thisCtrl.phone = response_data.phone;
+//                }
+//          )
+//       };
 
         this.getUserContacts = function(){
             $http({
@@ -58,6 +58,6 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
        };
 
 
-    this.getUserInfo();
+//    this.getUserInfo();
     this.getUserContacts();
 }]);
