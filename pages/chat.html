@@ -11,7 +11,7 @@
 
                         <div class="card-header">
                           <div ng-if="chatCtrl.isReply(m.original_post)" ng-init="post_info=chatCtrl.lookUpOriginalPost(m.original_post)">
-                            <p> Reply to: {{ post_info }}  </p>
+                            <a class="nav navbar-nav nav-link" href=""> Reply to: {{ post_info }}  </a>
                             </div>
                             <!-- Card Title is the person who write the message -->
 
@@ -20,6 +20,7 @@
                               <a class="icon">  <i ng-click="chatCtrl.togglePostModal(m.postid)" class="fas fa-ellipsis-h"></i></a>
                               <a class="icon"> <i class="fas fa-reply"> </i> </a>
 
+                            <h6> date posted: {{m.pdate}} </h6>
 
 
                             <!-- Here comes the message text -->
