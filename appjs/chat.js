@@ -9,14 +9,11 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.isToggled = false;
         this.userNavBarToggled = false;
 
-         this.fullName = "";
+        this.fullName = "";
         this.username = "";
         this.email='';
         this.phone='';
 
-        this.toggleModal = function(){
-          thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
-        };
         this.isPostModalToggled = false;
         this.activeGroup = "";
         this.activeGroupName="";
@@ -38,6 +35,10 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           console.log(pic);
         };
 
+        this.toggleModal = function(){
+          thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
+        };
+
          this.getUserInfo = function(){
             $http({
             method: 'GET',
@@ -57,7 +58,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
          this.toggleUserNavBar = function(){
             thisMessageCtrl.userNavBarToggled = !thisMessageCtrl.userNavBarToggled;
             console.log(thisMessageCtrl.userNavBarToggled);
-          //  groupCtrl.showGroupInfo(group.gName, group.GID)
           };
 
         this.lookUpOriginalPost = function(op){
@@ -91,7 +91,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             for(user in postReactions){
               thisMessageCtrl.postUserReaction.push(postReactions[user]);
             }
-          });
+          })
         };
 
         this.loadMessages = function(){
@@ -119,7 +119,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             for (item in posts){
               thisMessageCtrl.messageList.push(posts[item])
             }
-          });
+          })
         };
 
         this.postMsg = function(){
@@ -144,7 +144,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         });
 
 
-        this.see_console();
+
         this.getUserInfo();
 
       //  this.loadMessages();
