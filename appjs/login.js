@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$window', '$cookies',
-    function($http, $log, $scope, $window, $cookies) {
+angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$window', '$cookies', '$location',
+    function($http, $log, $scope, $window, $cookies, $location) {
         var thisCtrl = this;
         this.Error = "";
         this.uid= null;
@@ -30,7 +30,15 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
                     $scope.password='';
                     $cookies.put('uid', thisCtrl.uid);
                     //console.log($cookies.get('uid'));
-                    $window.location.href = '/#!/chat';
+                    $location.path('/chat');
         }}).catch(angular.noop);
+       };
+
+
+       this.logout = function(){
+      //   $window.alert("You are about to logout");
+         $location.path('/login');
+         $cookies.remove('uid');
+
        };
 }]);

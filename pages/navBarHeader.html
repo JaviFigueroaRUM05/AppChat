@@ -5,13 +5,13 @@
   </button>
   <a class="" ui-sref="">  ELYUAI </a>
   <ul class="navbar-nav-test d-md-down-none ml-auto">
-    <li class="nav-item px-3">
-      <a class="nav-link" href="#"> Log Out </a>
-    </li>
 
   </ul>
 
   <ul class="nav navbar-nav ml-auto">
+    <li ng-controller="LoginController as loginCtrl" class="nav-item px-3" >
+      <a class="nav-link" href="" ng-click="loginCtrl.logout()"> Log Out </a>
+    </li>
     <li class="nav-item-user">
         <a ng-click="chatCtrl.toggleUserNavBar()">
           <img class="app-header navbar img-avatar"
