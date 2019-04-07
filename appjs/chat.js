@@ -89,16 +89,16 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           });
         };
 
-        this.postMsg = function(){
+        this.postMsg = function(media){
+            var pic = media.name;
             var msg = thisMessageCtrl.newText;
             // Need to figure out who I am
             var author = "Me";
+            console.log(media);
             var nextId = thisMessageCtrl.counter++;
-            thisMessageCtrl.messageList.unshift({"postid": nextId, "message" : msg, "uname" : author, "like" : 0, "dislike" : 0});
+            thisMessageCtrl.messageList.push({"postid": nextId, "message" : msg, "uname" : author, "media": "media/group_pics/"+pic, "like" : 2, "dislike" : 3});
             thisMessageCtrl.newText = "";
         };
-
-        this.group = 2;
 
         $http({
           method: 'GET',
