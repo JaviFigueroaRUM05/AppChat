@@ -1,6 +1,6 @@
 (function() {
 
-    var app = angular.module('AppChat',['ngRoute']);
+    var app = angular.module('AppChat',['ngRoute', 'ngFileUpload']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
         $routeProvider.when('/login', {

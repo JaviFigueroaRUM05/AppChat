@@ -12,11 +12,19 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.activeGroupPhoto= "media/group_pics/succulenticon.jpg";
         this.postInformation = [];
         this.postUserReaction = [];
+        this.test = false;
 
         this.isReply = function(op){
           if(op){
             return true;
           }
+        };
+
+        this.showTest = function(pic){
+          thisMessageCtrl.test = !thisMessageCtrl.test;
+        };
+        this.showPic = function(pic){
+          console.log(pic);
         };
 
         this.lookUpOriginalPost = function(op){
