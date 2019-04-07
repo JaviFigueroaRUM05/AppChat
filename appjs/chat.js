@@ -17,6 +17,13 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.toggleModal = function(){
           thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
         };
+        this.isPostModalToggled = false;
+        this.activeGroup = "";
+        this.activeGroupName="";
+        this.activeGroupPhoto= "media/group_pics/succulenticon.jpg";
+        this.postInformation = [];
+        this.postUserReaction = [];
+        this.test = false;
 
         this.isReply = function(op){
           if(op){
@@ -24,6 +31,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         };
 
+        this.showTest = function(pic){
+          thisMessageCtrl.test = !thisMessageCtrl.test;
+        };
+        this.showPic = function(pic){
+          console.log(pic);
+        };
 
          this.getUserInfo = function(){
             $http({
@@ -56,6 +69,31 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         };
 
+        this.togglePostModal = function(postid){
+          if(thisMessageCtrl.isPostModalToggled == false){
+            thisMessageCtrl.isPostModalToggled = !thisMessageCtrl.isPostModalToggled;
+            thisMessageCtrl.createPostModal(postid);
+          }
+          else {
+            thisMessageCtrl.isPostModalToggled = !thisMessageCtrl.isPostModalToggled;
+          }
+        };
+
+        this.createPostModal = function(postid){
+          $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + postid
+          }).then(function(response){
+            thisMessageCtrl.postInformation.length = 0;
+            thisMessageCtrl.postUserReaction.length = 0;
+            thisMessageCtrl.postInformation.push(response.data.Post);
+            var postReactions = response.data.Reactions_Users;
+            for(user in postReactions){
+              thisMessageCtrl.postUserReaction.push(postReactions[user]);
+            }
+          });
+        };
+
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
             thisMessageCtrl.messageList.push({"id": 1, "text": "Hola Mi Amigo", "author" : "Bob",
@@ -66,7 +104,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             $log.error("Message Loaded: ", JSON.stringify(thisMessageCtrl.messageList));
         };
 
-        this.showPostsInGroup = function(gid){
+        this.showPostsInGroup = function(gid, gname, gphoto){
+          thisMessageCtrl.activeGroup = gid;
+          thisMessageCtrl.activeGroupName = gname;
+
+          console.log(thisMessageCtrl.activeGroup)
+          console.log(thisMessageCtrl.activeGroupPhoto)
           $http({
             method: 'GET',
             url: 'http://127.0.0.1:5000/groups/' + gid + '/posts'
@@ -77,7 +120,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
               thisMessageCtrl.messageList.push(posts[item])
             }
           });
-        }
+        };
 
         this.postMsg = function(){
             var msg = thisMessageCtrl.newText;
@@ -100,9 +143,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           }
         });
 
-       this.see_console = function(){
-          console.log(thisMessageCtrl.messageList);
-        };
 
         this.see_console();
         this.getUserInfo();

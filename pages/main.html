@@ -5,11 +5,14 @@
       <ng-include src="'pages/sideNav.html'"></ng-include>
     </div>
 
-    <button class="btn btn-success" ng-click="chatCtrl.toggleModal()"></button>
-    <ng-include src="'pages/modal.html'"></ng-include>
+    <div class="chatContainer">
+      <div class="app-footer"> <img class="avatar img-avatar" ng-src="{{'media/group_pics/succulenticon.jpg'}}"></img> {{ chatCtrl.activeGroupName }} </div>
 
-    <div class="MessageContainer">
-      <ng-include src="'pages/chat.html'"></ng-include>
+      <div class="MessageContainer">
+        <ng-include src="'pages/chat.html'"></ng-include>
+      </div>
+
+      <ng-include src="'pages/chatFooter.html'"></ng-include>
     </div>
 
     <div ng-controller="UserNavController as userNavCtrl">

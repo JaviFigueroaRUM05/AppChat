@@ -1,6 +1,7 @@
 (function() {
 
     var app = angular.module('AppChat',['ngRoute', 'ngCookies']);
+    var app = angular.module('AppChat',['ngRoute', 'ngFileUpload']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
 

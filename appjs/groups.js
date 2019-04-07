@@ -7,7 +7,14 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.counter  = 2;
         this.groupName= " ... ";
         this.isBarToggled = false;
+        this.isUserModalToggled = false;
         this.currentGid = 0;
+
+        this.selected_u_email="";
+        this.selected_u_fname="";
+        this.selected_u_lname="";
+        this.selected_u_phone="";
+        this.selected_u_uname="";
 
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
@@ -33,6 +40,24 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
               }
           }
           };
+
+          this.createUserModal = function(email, fname, lname, phone, uname){
+            thisGroupCtrl.selected_u_email = email;
+            thisGroupCtrl.selected_u_lname = lname;
+            thisGroupCtrl.selected_u_fname = fname;
+            thisGroupCtrl.selected_u_phone = phone;
+            thisGroupCtrl.selected_u_uname = uname;
+          };
+
+        this.showUserModalInfo = function(email, fname, lname, phone, uname){
+          if(thisGroupCtrl.isUserModalToggled == false){
+            console.log(thisGroupCtrl.isUserModalToggled);
+            thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
+            thisGroupCtrl.createUserModal(email, fname, lname, phone, uname);
+          } else {
+              thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
+          }
+        };
 
         this.showGroupInfo = function(groupName, gid){
           console.log(groupName)
