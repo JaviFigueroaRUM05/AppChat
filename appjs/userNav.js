@@ -1,15 +1,33 @@
 angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$scope', '$window', "$cookies",
     function($http, $log, $scope, $window, $cookies) {
         var thisCtrl = this;
-//
-//
-//        this.fullName = "";
-//        this.username = "";
-//        this.email='';
-//        this.phone='';
+
+        this.isUserModalToggled = false;
+        this.selected_u_email="";
+        this.selected_u_fname="";
+        this.selected_u_lname="";
+        this.selected_u_phone="";
+        this.selected_u_uname="";
 
         this.contactList = [];
 
+        this.createUserModal = function(email, fname, lname, phone, uname){
+          thisCtrl.selected_u_email = email;
+          thisCtrl.selected_u_lname = lname;
+          thisCtrl.selected_u_fname = fname;
+          thisCtrl.selected_u_phone = phone;
+          thisCtrl.selected_u_uname = uname;
+        };
+
+      this.showUserModalInfo = function(email, fname, lname, phone, uname){
+        if(thisCtrl.isUserModalToggled == false){
+          console.log(thisCtrl.isUserModalToggled);
+          thisCtrl.isUserModalToggled = !thisCtrl.isUserModalToggled;
+          thisCtrl.createUserModal(email, fname, lname, phone, uname);
+        } else {
+            thisCtrl.isUserModalToggled = !thisCtrl.isUserModalToggled;
+        }
+      };
 //       $scope.toggleUserNav = buildToggler('right');
 
 //    this.buildToggler = function(componentId) {
