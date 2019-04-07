@@ -1,4 +1,4 @@
-angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$window', "$cookies",
+angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$window', '$cookies',
     function($http, $log, $scope, $window, $cookies) {
         var thisCtrl = this;
         this.Error = "";
@@ -30,7 +30,7 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
                     $scope.password='';
                     $cookies.put('uid', thisCtrl.uid);
                     //console.log($cookies.get('uid'));
-                    $window.location.href = '/AppChat/index.html#!/chat';
+                    $window.location.href = '/#!/chat';
         }}).catch(angular.noop);
        };
 }]);
