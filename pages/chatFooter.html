@@ -1,13 +1,13 @@
 <div class="app-footer">
-<img ngf-thumbnail="picFile"> <button ng-click="picFile = null" ng-show="picFile">Remove</button></img>
+<img ngf-thumbnail="picFile"> <button class="btn btn-warning" ng-click="picFile = null" ng-show="picFile">Remove</button></img>
 <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="picFile" name="file"
              accept="image/*" ngf-max-size="2MB" required
              ngf-model-invalid="errorFile">
 
       <i class="far fa-image" >
   </i></button>
-  <textarea class="form-control is-valid" placeholder="Write Message"></textarea>
-  <button class="btn btn-success-send-bubble mr-2 ml-2"><i class="far fa-comment" >
+  <textarea class="form-control is-valid" ng-model="chatCtrl.newText" placeholder="Write Message"></textarea>
+  <button class="btn btn-success-send-bubble mr-2 ml-2" ng-click="chatCtrl.postMsg(picFile)"><i class="far fa-comment" >
   </i></button>
 </div>
 
