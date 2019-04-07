@@ -1,19 +1,11 @@
-angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', '$cookies',
-    function($http, $log, $scope, $cookies) {
+angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope',
+    function($http, $log, $scope) {
         var thisMessageCtrl = this;
 
         this.messageList = [];
         this.counter  = 2;
         this.newText = "";
         this.reply = "";
-        this.isToggled = false;
-        this.userNavBarToggled = false;
-
-        this.fullName = "";
-        this.username = "";
-        this.email='';
-        this.phone='';
-
         this.isPostModalToggled = false;
         this.activeGroup = "";
         this.activeGroupName="";
@@ -34,31 +26,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.showPic = function(pic){
           console.log(pic);
         };
-
-        this.toggleModal = function(){
-          thisMessageCtrl.isToggled = !thisMessageCtrl.isToggled;
-        };
-
-         this.getUserInfo = function(){
-            $http({
-            method: 'GET',
-            url: 'http://127.0.0.1:5000/user/uid='+ $cookies.get('uid')
-          }).then(
-                function(success_response){
-                    var response_data = success_response.data;
-                    console.log(response_data);
-                    thisMessageCtrl.fullName = response_data.first_name + " " + response_data.last_name;
-                    thisMessageCtrl.username = response_data.uname;
-                    thisMessageCtrl.email = response_data.email;
-                    thisMessageCtrl.phone = response_data.phone;
-                }
-          )
-       };
-
-         this.toggleUserNavBar = function(){
-            thisMessageCtrl.userNavBarToggled = !thisMessageCtrl.userNavBarToggled;
-            console.log(thisMessageCtrl.userNavBarToggled);
-          };
 
         this.lookUpOriginalPost = function(op){
           for(m in thisMessageCtrl.messageList){
@@ -91,7 +58,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             for(user in postReactions){
               thisMessageCtrl.postUserReaction.push(postReactions[user]);
             }
-          })
+          });
         };
 
         this.loadMessages = function(){
@@ -119,19 +86,19 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             for (item in posts){
               thisMessageCtrl.messageList.push(posts[item])
             }
-          })
+          });
         };
 
-        this.postMsg = function(){
+        this.postMsg = function(media){
+            var pic = media.name;
             var msg = thisMessageCtrl.newText;
             // Need to figure out who I am
-            var author = thisMessageCtrl.username;
+            var author = "Me";
+            console.log(media);
             var nextId = thisMessageCtrl.counter++;
-            thisMessageCtrl.messageList.unshift({"postid": nextId, "message" : msg, "uname" : author, "like" : 0, "dislike" : 0});
+            thisMessageCtrl.messageList.push({"postid": nextId, "message" : msg, "uname" : author, "media": "media/group_pics/"+pic, "like" : 2, "dislike" : 3});
             thisMessageCtrl.newText = "";
         };
-
-        this.group = 2;
 
         $http({
           method: 'GET',
@@ -144,8 +111,4 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         });
 
 
-
-        this.getUserInfo();
-
-      //  this.loadMessages();
 }]);
