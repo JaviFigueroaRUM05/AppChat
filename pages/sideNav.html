@@ -50,7 +50,9 @@
             ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname)" >
           <a class="nav-link">
             <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
-              {{ user.uname }} </a>
+              {{ user.uname }}
+            <i class="fas fa-award" ng-show="user.isadmin"></i>
+            </a>
         </li>
     </ul>
 </div>

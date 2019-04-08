@@ -96,13 +96,20 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.postMsg = function(media){
-            var pic = media.name;
+            var pic="";
+            console.log(media);
+            if (media){
+                pic = "media/group_pics/" + media.name;
+            }
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var dateTime = date+' '+time;
             var msg = thisMessageCtrl.newText;
             // Need to figure out who I am
             var author = thisMessageCtrl.username;
-            console.log(media);
             var nextId = thisMessageCtrl.counter++;
-            thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "media": "media/group_pics/"+pic, "like" : 2, "dislike" : 3});
+            thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "pdate":  dateTime, "media": pic, "like" : 2, "dislike" : 3});
             thisMessageCtrl.newText = "";
         };
 
