@@ -1,7 +1,7 @@
 
 <div class="card-login-container"
 <div ng-cloak style="align-content: center">
-    <div class="row">
+    <div class="row" ng-show = !loginCtrl.registerPageVisible>
         <div class="col s10 m3">
             <div class="card-login border-success">
               <div class="card-title">
@@ -13,7 +13,7 @@
 
                         <div class="col-md-11">
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="username" placeholder="username" required=""/>
+                                <input type="text" style="background:white" class="form-control" ng-model="email" placeholder="E-mail" required=""/>
                             </div>
 
                             <div class="form-group">
@@ -23,6 +23,8 @@
                             <div class="form-group">
                                 <button type="submit" ng-click="loginCtrl.login()" class="btn btn-login">Login</button>
                                 <span class="text-danger" >{{loginCtrl.Error}} </span>
+
+                                <button type="submit" ng-click="loginCtrl.goToRegisterPage()" class="btn btn-login">Register</button>
                             </div>
                         </div>
                     </form>
@@ -31,5 +33,54 @@
         </div>
 
     </div>
+    <div class="row" ng-show = loginCtrl.registerPageVisible>
+        <div class="col s10 m3">
+            <div class="card-login border-success">
+              <div class="card-title">
+                    <h3>Register</h3>
+                </div>
+                <div class="card-content ">
+
+                    <form class="form">
+
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="first_name" placeholder="First Name" required=""/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="last_name" placeholder="Last Name" required=""/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" style="background:white" class="form-control" ng-model="email" placeholder="E-mail" required=""/>
+                                <span class="text-danger" ng-show = loginCtrl.emailExistsError>The e-mail: {{email}} already exists in our system.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="phone" placeholder="Phone number" required="" maxlength = "11" />
+                                <span class="text-danger" ng-show = loginCtrl.phoneExistsError>The phone number: {{phone}} already exists in our system.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="username" placeholder="username" required=""/>
+                                <span class="text-danger" ng-show = loginCtrl.usernameExistsError>The username: {{username}} already exists in our system.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" style="background:white" class="form-control" ng-model="password" placeholder="password" required=""/>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" ng-click="loginCtrl.register()" class="btn btn-login">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 </div>
