@@ -4,7 +4,9 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
         this.Error = "";
         this.usernameExistsError = false;
         this.phoneExistsError = false;
+        this.badPhoneError = false;
         this.emailExistsError = false;
+        this.passwordsDontMatchError = false;
         this.uid= null;
         this.registerPageVisible = false;
 
@@ -42,10 +44,17 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
             thisCtrl.registerPageVisible = !thisCtrl.registerPageVisible;
         }
 
+
+        this.verifyRegistration = function(){
+            thisCtrl.badPhoneError = isNaN($scope.phone);
+            thisCtrl.passwordsDontMatchError = ($scope.password !== $scope.verify_password);
+            if(!thisCtrl.badPhoneError && !thisCtrl.passwordsDontMatchError){ thisCtrl.register(); }
+        }
+
         this.register = function(){
         $http({
           method: 'POST',
-          url: 'http://127.0.0.1:5000/user/login',
+          url: 'http://127.0.0.1:5000/user/register',
           data: JSON.stringify({ "email": $scope.email,
                                  "password": $scope.password,
                                  "first_name": $scope.first_name,
@@ -55,8 +64,22 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
 
         }).then( // On success.
             function(success_response){
-                thisCtrl.uid = success_response.data.uid;
+                console.log(success_response);
+                if(success_response.data.hasOwnProperty('Error')){
 
+                    errorMessage = success_response.data.Error;
+
+                    if(errorMessage.includes("users_email_key")){
+                        thisCtrl.emailExistsError = true;
+                    }
+                    else if(errorMessage.includes("users_uname_key")){
+                        thisCtrl.usernameExistsError = true;
+                    }
+                    else if(errorMessage.includes("users_phone_key")){
+                        thisCtrl.phoneExistsError = true;
+                    }
+                }
+                else{thisCtrl.uid = success_response.data.uid;}
         }, function (error_response){ //On Error
             //TODO: modify this error to properly toggle messages.
 

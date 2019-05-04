@@ -53,26 +53,32 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="email" style="background:white" class="form-control" ng-model="email" placeholder="E-mail" required=""/>
+                                <input type="email" style="background:white" class="form-control" ng-model="email" placeholder="E-mail" required="" ng-change="loginCtrl.emailExistsError = false"/>
                                 <span class="text-danger" ng-show = loginCtrl.emailExistsError>The e-mail: {{email}} already exists in our system.</span>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="phone" placeholder="Phone number" required="" maxlength = "11" />
+                                <input type="text" style="background:white" class="form-control" ng-model="phone" placeholder="Phone number" required="" minlength = "10" maxlength = "11" ng-change="loginCtrl.phoneExistsError = false; loginCtrl.badPhoneError = false;"/>
                                 <span class="text-danger" ng-show = loginCtrl.phoneExistsError>The phone number: {{phone}} already exists in our system.</span>
+                                <span class="text-danger" ng-show = loginCtrl.badPhoneError>The phone number entered contains illegal characters.</span>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="username" placeholder="username" required=""/>
+                                <input type="text" style="background:white" class="form-control" ng-model="uname" placeholder="username" required="" ng-change="loginCtrl.usernameExistsError = false"/>
                                 <span class="text-danger" ng-show = loginCtrl.usernameExistsError>The username: {{username}} already exists in our system.</span>
                             </div>
 
                             <div class="form-group">
-                                <input type="password" style="background:white" class="form-control" ng-model="password" placeholder="password" required=""/>
+                                <input type="password" style="background:white" class="form-control" ng-model="password" placeholder="password- min. 8 characters" minlength="8" required="" ng-change="loginCtrl.passwordsDontMatchError = false"/>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" ng-click="loginCtrl.register()" class="btn btn-login">Register</button>
+                                <input type="password" style="background:white" class="form-control" ng-model="verify_password" placeholder="re-enter password" minlength="8" required="" ng-change="loginCtrl.passwordsDontMatchError = false"/>
+                                <span class="text-danger" ng-show = loginCtrl.passwordsDontMatchError>The passwords entered do not match.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" ng-click="loginCtrl.verifyRegistration()" class="btn btn-login">Register</button>
                             </div>
                         </div>
                     </form>
