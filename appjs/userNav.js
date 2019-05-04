@@ -2,6 +2,7 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
     function($http, $log, $scope, $window, $cookies) {
         var thisCtrl = this;
 
+        this.isNewContactModalToggled = false;
         this.isUserModalToggled = false;
         this.selected_u_email="";
         this.selected_u_fname="";

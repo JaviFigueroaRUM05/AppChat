@@ -17,7 +17,7 @@
                 </li>
 
                 <li class="nav-title"> Contacts </li>
-                <li class="nav-title-add" ng-click="">
+                <li class="nav-title-add" ng-click="console.log('Clicked button'); userNavCtrl.isNewContactModalToggled = true">
                   <span class="nav-title-add"> Add Contacts </span>
                 <i class="fas fa-plus-square"></i>
                 </li>
@@ -37,34 +37,84 @@
           </div>
         </div>
 
-      <div class="ng-cloak" ng-show="userNavCtrl.isUserModalToggled">
+    <!-- Add new contact modal -->
+      <div class="ng-cloak" ng-show="userNavCtrl.isNewContactModalToggled">
           <div class = "modal-backdrop">
-          <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
-                aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
 
-        <div class="modal-dialog modal-success" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Add to your contacts </h4>
+                     </div>
 
-          <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title"> User Information </h4>
+                      <div class="modal-body">
+                        <form class="form">
+
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="first_name" placeholder="First Name" required=""/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="last_name" placeholder="Last Name" required=""/>
+                            </div>
+
+
+                            <!-- TODO: modify this functionality to take phone or email and return errors. -->
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="phone_email" placeholder="Phone number or E-mail" required=""  ng-change="userNavCtrl.phoneExistsError = false; loginCtrl.badPhoneError = false;"/>
+                                <span class="text-danger" ng-show = loginCtrl.phoneExistsError>The phone number: {{phone}} already exists in our system.</span>
+                                <span class="text-danger" ng-show = loginCtrl.badPhoneError>The phone number entered contains illegal characters.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" ng-click="loginCtrl.verifyRegistration()" class="btn btn-login">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                      </div>
+
+                        <div class="modal-footer">
+                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="userNavCtrl.isNewContactModalToggled = !userNavCtrl.isNewContactModalToggled"> Close </button>
+                        </div>
+
+                     </div>
+                  </div>
               </div>
-
-              <div class="modal-body">
-                <h4> {{ userNavCtrl.selected_u_uname }} </h4>
-                <p> name:    {{ userNavCtrl.selected_u_fname }}  {{ userNavCtrl.selected_u_lname }} </p>
-                <p> email:   {{ userNavCtrl.selected_u_email }} </p>
-                <p> phone:   {{ userNavCtrl.selected_u_phone }} </p>
-              </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button"
-                data-dismiss="modal" ng-click="userNavCtrl.isUserModalToggled = !userNavCtrl.isUserModalToggled"> Close </button>
-            </div>
           </div>
-
       </div>
 
-        </div>
+
+      <div class="ng-cloak" ng-show="userNavCtrl.isUserModalToggled">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> User Information </h4>
+                     </div>
+
+                      <div class="modal-body">
+                        <h4> {{ userNavCtrl.selected_u_uname }} </h4>
+                        <p> name:    {{ userNavCtrl.selected_u_fname }}  {{ userNavCtrl.selected_u_lname }} </p>
+                        <p> email:   {{ userNavCtrl.selected_u_email }} </p>
+                        <p> phone:   {{ userNavCtrl.selected_u_phone }} </p>
+                      </div>
+
+                        <div class="modal-footer">
+                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="userNavCtrl.isUserModalToggled = !userNavCtrl.isUserModalToggled"> Close </button>
+                        </div>
+
+                     </div>
+                  </div>
+              </div>
           </div>
-          </div>
+      </div>
+
 </div>
