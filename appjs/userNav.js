@@ -4,6 +4,9 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
 
         this.isNewContactModalToggled = false;
         this.isUserModalToggled = false;
+        this.contactSuccessfullyAdded = false;
+        this.contactNotFoundError = false;
+        this.alreadyContactWarning = false;
         this.selected_u_email="";
         this.selected_u_fname="";
         this.selected_u_lname="";
@@ -60,6 +63,7 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
 //       };
 
         this.getUserContacts = function(){
+            thisCtrl.contactList.length = 0;
             $http({
             method: 'GET',
             url: 'http://127.0.0.1:5000/user/contacts',
@@ -76,30 +80,72 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
           )
        };
 
+
+        this.addContact = function(contact_first_name, contact_last_name, phone_email){
+            console.log(phone_email);
+            console.log(contact_first_name);
+            console.log(contact_last_name);
+            if(isNaN(phone_email)){ thisCtrl.addContactByEmail(contact_first_name, contact_last_name, phone_email); }
+            else{ thisCtrl.addContactByPhone(contact_first_name, contact_last_name, phone_email); }
+        };
+
+
        //TODO: modify backend and coordinate this method with html to properly add
        // new contact.
-        this.addContactByPhone = function(){
+        this.addContactByPhone = function(contact_first_name, contact_last_name, contact_phone_email){
             $http({
-            method: 'GET',
-            url: 'http://127.0.0.1:5000/user/contacts',
+            method: 'POST',
+            url: 'http://127.0.0.1:5000/user/add-contact',
             headers: { "Authorization": $cookies.get('uid')},
-            data: JSON.stringify({  "first_name": $scope.contact_first_name,
-                                    "last_name": $scope.contact_last_name,
-                                    "phone": $scope.contact_phone_email })
+            data: JSON.stringify({  "first_name": contact_first_name,
+                                    "last_name": contact_last_name,
+                                    "phone": contact_phone_email })
           }).then(
                 function(success_response){
-                var contacts = success_response.data.contacts;
-                for(contact in contacts){
-                    thisCtrl.contactList.push(contacts[contact]);
-                    }
-                console.log(thisCtrl.contactList);
-                }, function(error_response){
-                console.log(error_response);}
+                     if(success_response.data.hasOwnProperty('Error')){
+                        errorMessage = success_response.data.Error;
+                        console.log(errorMessage);
+                        if(errorMessage.includes("null value in column \"cid\" violates not-null constraint")){
+                            thisCtrl.contactNotFoundError = true;
+                        }
+                        else if(errorMessage.includes("duplicate key value violates unique constraint")){
+                            thisCtrl.alreadyContactWarning = true;
+                        }
+                      }
+                    else { console.log(success_response);
+                            thisCtrl.contactSuccessfullyAdded = true;
+                            thisCtrl.getUserContacts();} },
+                function(error_response){ console.log(error_response);}
           )
        };
 
 
-
+        this.addContactByEmail = function(contact_first_name, contact_last_name, contact_phone_email){
+            $http({
+            method: 'POST',
+            url: 'http://127.0.0.1:5000/user/add-contact',
+            headers: { "Authorization": $cookies.get('uid')},
+            data: JSON.stringify({  "first_name": contact_first_name,
+                                    "last_name": contact_last_name,
+                                    "email": contact_phone_email })
+          }).then(
+              function(success_response){
+                     if(success_response.data.hasOwnProperty('Error')){
+                        errorMessage = success_response.data.Error;
+                        console.log(errorMessage);
+                        if(errorMessage.includes("null value in column \"cid\" violates not-null constraint")){
+                            thisCtrl.contactNotFoundError = true;
+                        }
+                        else if(errorMessage.includes("duplicate key value violates unique constraint")){
+                            thisCtrl.alreadyContactWarning = true;
+                        }
+                      }
+                    else { console.log(success_response);
+                            thisCtrl.contactSuccessfullyAdded = true;
+                            thisCtrl.getUserContacts();} },
+                function(error_response){ console.log(error_response);}
+          )
+       };
 
 
 //    this.getUserInfo();

@@ -17,7 +17,7 @@
                 </li>
 
                 <li class="nav-title"> Contacts </li>
-                <li class="nav-title-add" ng-click="console.log('Clicked button'); userNavCtrl.isNewContactModalToggled = true">
+                <li class="nav-title-add" ng-click="console.log('Clicked button'); userNavCtrl.isNewContactModalToggled = true;">
                   <span class="nav-title-add"> Add Contacts </span>
                 <i class="fas fa-plus-square"></i>
                 </li>
@@ -62,15 +62,22 @@
                             </div>
 
 
-                            <!-- TODO: modify this functionality to take phone or email and return errors. -->
+                            <!-- Add Contact Form -->
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="contact_phone_email" placeholder="Phone number or E-mail" required=""  ng-change="userNavCtrl.phoneExistsError = false; loginCtrl.badPhoneError = false;"/>
-                                <span class="text-danger" ng-show = loginCtrl.phoneExistsError>The phone number: {{phone}} already exists in our system.</span>
-                                <span class="text-danger" ng-show = loginCtrl.badPhoneError>The phone number entered contains illegal characters.</span>
+                                <input type="text" style="background:white" class="form-control" ng-model="contact_phone_email" placeholder="Phone number or E-mail" required=""  ng-change="userNavCtrl.contactNotFoundError = false;
+                                                                                                                                                                                            userNavCtrl.contactSuccessfullyAdded = false;
+                                                                                                                                                                                            userNavCtrl.alreadyContactWarning = false;"/>
+                                <span class="text-success" ng-show = userNavCtrl.contactSuccessfullyAdded>Contact successfully added to your contacts list!.</span>
+                                <span class="text-warning" ng-show = userNavCtrl.alreadyContactWarning>User is already in your contacts list.</span>
+                                <span class="text-danger" ng-show = userNavCtrl.contactNotFoundError>No users were found with the information provided.</span>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" ng-click="userNavCtrl.addContact()" class="btn btn-login">Add Contact</button>
+                                <button type="submit" ng-click="userNavCtrl.contactNotFoundError = false;
+                                                                userNavCtrl.contactSuccessfullyAdded = false;
+                                                                userNavCtrl.alreadyContactWarning = false;
+                                                                userNavCtrl.addContact(contact_first_name, contact_last_name, contact_phone_email);"
+                                        class="btn btn-login">Add</button>
                             </div>
                         </div>
                     </form>
