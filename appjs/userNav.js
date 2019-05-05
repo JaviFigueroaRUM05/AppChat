@@ -76,6 +76,31 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
           )
        };
 
+       //TODO: modify backend and coordinate this method with html to properly add
+       // new contact.
+        this.addContactByPhone = function(){
+            $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:5000/user/contacts',
+            headers: { "Authorization": $cookies.get('uid')},
+            data: JSON.stringify({  "first_name": $scope.contact_first_name,
+                                    "last_name": $scope.contact_last_name,
+                                    "phone": $scope.contact_phone_email })
+          }).then(
+                function(success_response){
+                var contacts = success_response.data.contacts;
+                for(contact in contacts){
+                    thisCtrl.contactList.push(contacts[contact]);
+                    }
+                console.log(thisCtrl.contactList);
+                }, function(error_response){
+                console.log(error_response);}
+          )
+       };
+
+
+
+
 
 //    this.getUserInfo();
     this.getUserContacts();

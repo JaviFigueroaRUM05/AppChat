@@ -54,23 +54,23 @@
 
                         <div class="col-md-11">
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="first_name" placeholder="First Name" required=""/>
+                                <input type="text" style="background:white" class="form-control" ng-model="contact_first_name" placeholder="First Name" required=""/>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="last_name" placeholder="Last Name" required=""/>
+                                <input type="text" style="background:white" class="form-control" ng-model="contact_last_name" placeholder="Last Name" required=""/>
                             </div>
 
 
                             <!-- TODO: modify this functionality to take phone or email and return errors. -->
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="phone_email" placeholder="Phone number or E-mail" required=""  ng-change="userNavCtrl.phoneExistsError = false; loginCtrl.badPhoneError = false;"/>
+                                <input type="text" style="background:white" class="form-control" ng-model="contact_phone_email" placeholder="Phone number or E-mail" required=""  ng-change="userNavCtrl.phoneExistsError = false; loginCtrl.badPhoneError = false;"/>
                                 <span class="text-danger" ng-show = loginCtrl.phoneExistsError>The phone number: {{phone}} already exists in our system.</span>
                                 <span class="text-danger" ng-show = loginCtrl.badPhoneError>The phone number entered contains illegal characters.</span>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" ng-click="loginCtrl.verifyRegistration()" class="btn btn-login">Register</button>
+                                <button type="submit" ng-click="userNavCtrl.addContact()" class="btn btn-login">Add Contact</button>
                             </div>
                         </div>
                     </form>
