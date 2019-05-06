@@ -90,10 +90,8 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
 
 
         this.createGroup = function(group_name, group_photo){
-          console.log("create group");
-
-           // TODO: fix the issue of uploading no image that puts {gphoto} in the image field in DB.
-          if (group_photo === "{gphoto}"){ group_photo_name = ""; }
+          console.log(group_photo);
+          if (!group_photo){ group_photo_name = ""; }
           else { group_photo_name = group_photo;}
 
           $http({
@@ -114,7 +112,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
               method: 'POST',
               url: 'http://127.0.0.1:5000/groups/' + gid + '/add-participant',
               data: JSON.stringify({ "uid": $cookies.get('uid'),
-                                    "isAdmin": 't' }),
+                                    "isAdmin": "true" }),
                 }).then(
                     function(response){ //TODO: Handle successes and exceptions.
                         thisGroupCtrl.getGroupInfo();
