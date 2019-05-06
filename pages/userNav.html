@@ -27,7 +27,7 @@
 
             <ul class="nav">
               <li ng-repeat="contact in userNavCtrl.contactList" class="nav-item"
-                  ng-click="userNavCtrl.showUserModalInfo(contact.email, contact.first_name, contact.last_name, contact.phone, contact.uname)" >
+                  ng-click="userNavCtrl.showUserModalInfo(contact.email, contact.first_name, contact.last_name, contact.phone, contact.uname, contact.uid)" >
                 <a class="nav-link">
                     <img ng-src="media/profile_pics/corgi-monocle.jpg"
                          class="avatar img-avatar" ></img>
@@ -94,7 +94,7 @@
           </div>
       </div>
 
-
+  <!-- Contact info modal -->
       <div class="ng-cloak" ng-show="userNavCtrl.isUserModalToggled">
           <div class = "modal-backdrop">
               <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
@@ -116,6 +116,10 @@
                         <div class="modal-footer">
                              <button class="btn btn-secondary" type="button" data-dismiss="modal"
                                      ng-click="userNavCtrl.isUserModalToggled = !userNavCtrl.isUserModalToggled"> Close </button>
+
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="userNavCtrl.isDeleteUserModalToggled = true;
+                                     userNavCtrl.isUserModalToggled = false;"> Delete </button>
                         </div>
 
                      </div>
@@ -123,5 +127,68 @@
               </div>
           </div>
       </div>
+
+      <!-- Delete contact modal -->
+     <div class="ng-cloak" ng-show="userNavCtrl.isDeleteUserModalToggled">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Delete Contact </h4>
+                     </div>
+
+                      <div class="modal-body">
+                        <h4> Are you sure you want to delete {{ userNavCtrl.selected_u_uname }} ? </h4>
+                        <p> name:    {{ userNavCtrl.selected_u_fname }}  {{ userNavCtrl.selected_u_lname }} </p>
+                        <p> email:   {{ userNavCtrl.selected_u_email }} </p>
+                        <p> phone:   {{ userNavCtrl.selected_u_phone }} </p>
+                      </div>
+
+                        <div class="modal-footer">
+                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="userNavCtrl.isDeleteUserModalToggled = false;"> Cancel </button>
+
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="userNavCtrl.deleteContact(userNavCtrl.selected_u_uid);
+                                     userNavCtrl.isDeleteUserModalToggled = false;"> Delete </button>
+                        </div>
+
+                     </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <!-- Contact Successfully Deleted modal -->
+      <div class="ng-cloak" ng-show="userNavCtrl.contactSuccessfullyDeleted">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Delete Contact </h4>
+                     </div>
+
+                      <div class="modal-body">
+                        <h4>{{ userNavCtrl.selected_u_uname }} has been deleted from your contact list. </h4>
+                      </div>
+
+                        <div class="modal-footer">
+                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="userNavCtrl.contactSuccessfullyDeleted = false;"> Close </button>
+                        </div>
+
+                     </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
 
 </div>
