@@ -103,6 +103,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                     function(response){ //TODO: Handle successes and exceptions.
                         thisGroupCtrl.addSelfAsAdmin(response.data.group.gid);
                         console.log(response.data.group.gid);
+                        thisGroupCtrl.isNewGroupModalToggled = false;
                     })
         };
 
