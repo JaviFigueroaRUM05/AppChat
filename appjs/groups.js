@@ -88,8 +88,8 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             thisGroupCtrl.newText = "";
         };
 
-        this.createGroup = function(group_name, group_photo){
 
+        this.createGroup = function(group_name, group_photo){
           console.log("create group");
 
            // TODO: fix the issue of uploading no image that puts {gphoto} in the image field in DB.
@@ -97,39 +97,51 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           else { group_photo_name = group_photo;}
 
           $http({
-          method: 'POST',
-          url: 'http://127.0.0.1:5000/groups/create',
-          data: JSON.stringify({ "gname": group_name,
-                                  "gphoto": group_photo_name
-           }),
+              method: 'POST',
+              url: 'http://127.0.0.1:5000/groups/create',
+              data: JSON.stringify({ "gname": group_name,
+                                    "gphoto": group_photo_name }),
+                }).then(
+                    function(response){ //TODO: Handle successes and exceptions.
+                        thisGroupCtrl.addSelfAsAdmin(response.data.group.gid);
+                        console.log(response.data.group.gid);
+                    })
+        };
 
-        }).then(function(response){ //TODO: add the user who created the group  to the group as the admin.
-                    console.log(response.data.group.gid);
 
-          })
+        this.addSelfAsAdmin = function(gid){
+          $http({
+              method: 'POST',
+              url: 'http://127.0.0.1:5000/groups/' + gid + '/add-participant',
+              data: JSON.stringify({ "uid": $cookies.get('uid'),
+                                    "isAdmin": 't' }),
+                }).then(
+                    function(response){ //TODO: Handle successes and exceptions.
+                        thisGroupCtrl.getGroupInfo();
+                        console.log(response.data);
+                    })
         };
 
 
 
-        this.getGroupInfo = function(number){
-          console.log(number)
-        }
-
-        $http({
-          method: 'GET',
-          url: 'http://127.0.0.1:5000/groups',
-      //    data: JSON.stringify({ "uid": 2 }),
-          headers: {'Authorization': $cookies.get('uid')}
-        }).then(function(groups){
-          var response = groups.data
-          for(group in response){
-            thisGroupCtrl.groupList.push(response[group]);
-          }
-        });
+        this.getGroupInfo = function(){ // Surrounded the http call within the getGroupInfo method. - Brian
+            thisGroupCtrl.groupList.length = 0;
+          console.log("Getting group info");
+            $http({
+              method: 'GET',
+              url: 'http://127.0.0.1:5000/groups',
+          //    data: JSON.stringify({ "uid": 2 }),
+              headers: {'Authorization': $cookies.get('uid')}
+            }).then(function(groups){
+              var response = groups.data
+              for(group in response){
+                thisGroupCtrl.groupList.push(response[group]);
+              }
+            })};
 
         this.see_console = function(){
           console.log(thisGroupCtrl.groupList);
         };
 
-
+        this.getGroupInfo();
 }]);
