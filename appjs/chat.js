@@ -113,6 +113,137 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             thisMessageCtrl.newText = "";
         };
 
+	this.isLiked = function(message) {
+	    $http({
+                method: 'GET',
+                url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/reaction',
+	        headers: {'Authorization': $cookies.get('uid')}  
+            }).then((response) => {
+	        if(response.data.Reaction == 'L') { 
+		    document.getElementById("like_btn"+message.postid).className = "btn btn-info mr-1 ml-2";
+		} else {
+		    document.getElementById("like_btn"+message.postid).className = "btn btn-success mr-1 ml-2";
+		}
+	    });
+	};
+
+	this.isDisliked = function(message) {
+	    $http({
+                method: 'GET',
+                url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/reaction',
+	        headers: {'Authorization': $cookies.get('uid')}  
+            }).then((response) => {
+	        if(response.data.Reaction == 'D') { 
+		    document.getElementById("dislike_btn"+message.postid).className = "btn btn-info mr-2 ml-2";
+		} else {
+		    document.getElementById("dislike_btn"+message.postid).className = "btn btn-success mr-2 ml-2";
+		}
+	    });
+	};
+
+	this.pressLike = function(message) {
+	    $http({
+                method: 'GET',
+                url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/reaction',
+	        headers: {'Authorization': $cookies.get('uid')}  
+            }).then(function(response){
+
+		var today = new Date();
+            	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            	var dateTime = date+' '+time;
+
+  	        if(response.data.Reaction == "none") { 
+	            $http({
+                        method: 'POST',
+                	url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/post-reaction',
+	        	headers: {'Authorization': $cookies.get('uid')},  
+			data: JSON.stringify({'rDate': dateTime, 'rType': 'like'})
+            	    }).then((responce) => {
+			console.log(responce.data);
+		        message.likes += 1;
+			document.getElementById("like_btn"+message.postid).className = "btn btn-info mr-1 ml-2";
+		    });
+		}
+	        else if(response.data.Reaction == "D") { 
+	            $http({
+                        method: 'PUT',
+                	url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/update-reaction',
+	        	headers: {'Authorization': $cookies.get('uid')},  
+			data: JSON.stringify({'rDate': dateTime, 'rType': 'like'})
+            	    }).then((responce) => {
+			console.log(responce.data);
+		        message.likes += 1;
+			message.dislikes -= 1;
+			document.getElementById("like_btn"+message.postid).className = "btn btn-info mr-1 ml-2";
+		        document.getElementById("dislike_btn"+message.postid).className = "btn btn-success mr-2 ml-2";
+});
+		}
+	        else if(response.data.Reaction == "L") { 
+		    $http({
+                        method: 'DELETE',
+                	url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/delete-reaction',
+	        	headers: {'Authorization': $cookies.get('uid')}  
+            	    }).then((responce) => {
+			console.log(responce.data);
+		        message.likes -= 1;
+		        document.getElementById("like_btn"+message.postid).className = "btn btn-success mr-1 ml-2";
+ 		    });
+	        }
+            });
+	};
+
+	this.pressDislike = function(message) {
+	    $http({
+                method: 'GET',
+                url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/reaction',
+	        headers: {'Authorization': $cookies.get('uid')}  
+            }).then(function(response){
+		
+		var today = new Date();
+            	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            	var dateTime = date+' '+time;
+
+	        if(response.data.Reaction == "none") { 
+		    $http({
+                        method: 'POST',
+                	url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/post-reaction',
+	        	headers: {'Authorization': $cookies.get('uid')},  
+			data: JSON.stringify({'rDate': dateTime, 'rType': 'dislike'})
+            	    }).then((responce) => {
+			console.log(responce.data);
+		        message.dislikes += 1;
+		        document.getElementById("dislike_btn"+message.postid).className = "btn btn-info mr-2 ml-2";
+		    });
+	        }
+	        else if(response.data.Reaction == "L") { 
+		    $http({
+                        method: 'PUT',
+                	url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/update-reaction',
+	        	headers: {'Authorization': $cookies.get('uid')},  
+			data: JSON.stringify({'rDate': dateTime, 'rType': 'dislike'})
+            	    }).then((responce) => {
+			console.log(responce.data);
+		        message.dislikes += 1;
+			message.likes -= 1;
+		        document.getElementById("like_btn"+message.postid).className = "btn btn-success mr-1 ml-2";
+		        document.getElementById("dislike_btn"+message.postid).className = "btn btn-info mr-2 ml-2";
+		    }); 
+	        }
+	        else if(response.data.Reaction == "D") { 
+		    $http({
+                        method: 'DELETE',
+                	url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + message.postid + '/delete-reaction',
+	        	headers: {'Authorization': $cookies.get('uid')}  
+            	    }).then((responce) => {
+			console.log(responce.data);
+		        message.dislikes -= 1;
+		        document.getElementById("dislike_btn"+message.postid).className = "btn btn-success mr-2 ml-2";
+                    });
+	        }
+            });
+	};
 ///-------------------------------- User Nav Bar -----------------------
         this.getUserInfo = function(){
             $http({

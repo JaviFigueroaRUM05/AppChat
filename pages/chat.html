@@ -35,10 +35,10 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn-success mr-1 ml-2"><i class="fas fa-thumbs-up">
-                            </i></button> <a ng-bind= "m.likes || '0'"">  </a>
-                            <button class="btn btn-success mr-2 ml-2"><i class="fas fa-thumbs-down">
-                            </i></button><span ng-bind="m.dislikes || '0'">  </span>
+				<button id="like_btn{{m.postid}}" class="btn btn-success mr-1 ml-2" ng-click="chatCtrl.pressLike(m)" ng-init="chatCtrl.isLiked(m)"><i class="fas fa-thumbs-up">
+                            </i></button> <a ng-bind="m.likes || '0'">  </a>
+			    <button id="dislike_btn{{m.postid}}" class="btn btn-success mr-2 ml-2" ng-click="chatCtrl.pressDislike(m)" ng-init="chatCtrl.isDisliked(m)"><i class="fas fa-thumbs-down">
+                            </i></button><a ng-bind="m.dislikes || '0'">  </a>
                         </div>
                     </div>
                 </div>
