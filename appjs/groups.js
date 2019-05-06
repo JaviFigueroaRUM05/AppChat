@@ -8,6 +8,8 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.groupName= " ... ";
         this.isBarToggled = false;
         this.isUserModalToggled = false;
+        this.isNewGroupModalToggled = false;
+        this.groupAlreadyExistsError = false;
         this.currentGid = 0;
 
         this.selected_u_email="";
@@ -86,9 +88,28 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             thisGroupCtrl.newText = "";
         };
 
-        this.createGroup = function(){
-          console.log("create group")
-        }
+        this.createGroup = function(group_name, group_photo){
+
+          console.log("create group");
+
+           // TODO: fix the issue of uploading no image that puts {gphoto} in the image field in DB.
+          if (group_photo === "{gphoto}"){ group_photo_name = ""; }
+          else { group_photo_name = group_photo;}
+
+          $http({
+          method: 'POST',
+          url: 'http://127.0.0.1:5000/groups/create',
+          data: JSON.stringify({ "gname": group_name,
+                                  "gphoto": group_photo_name
+           }),
+
+        }).then(function(response){ //TODO: add the user who created the group  to the group as the admin.
+                    console.log(response.data.group.gid);
+
+          })
+        };
+
+
 
         this.getGroupInfo = function(number){
           console.log(number)
