@@ -113,46 +113,42 @@
               <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
                     aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
                   <div class="modal-dialog modal-success" role="document">
-
                     <div class="modal-content">
                       <div class="modal-header">
                          <h4 class="modal-title"> Create New Group </h4>
-                     </div>
-
+                      </div>
                       <div class="modal-body">
                         <form class="form">
+                            <div class="col-md-11">
+                                <div class="form-group">
+                                    <input type="text" style="background:white" class="form-control" ng-model="group_name"
+                                           placeholder="Group name" required="" maxlength="20"/>
+                                </div>
 
-                        <div class="col-md-11">
-                            <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="group_name"
-                                       placeholder="Group name" required="" maxlength="20"/>
+                                <!-- Upload image not functional, and giving issues with uploading no image.-->
+                                <div class="form-group">
+                                    <img ngf-thumbnail="groupPicFile">
+                                        <button class="btn btn-warning" ng-click="picFile = null" ng-show="groupPicFile">Remove</button>
+                                    </img>
+                                    <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="groupPicFile" name="file"
+                                                 accept="media/group_pics/*" ngf-max-size="2MB" required
+                                                 ngf-model-invalid="errorFile">
+                                          <i class="far fa-image" ></i>
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" ng-click="groupCtrl.createGroup(group_name, groupPicFile.name);"
+                                            class="btn btn-login">Create</button>
+                                </div>
                             </div>
-
-
-                            <!-- Upload image not functional, and giving issues with uploading no image.-->
-                            <div class="form-group">
-                                <img ngf-thumbnail="groupPicFile"> <button class="btn btn-warning" ng-click="picFile = null" ng-show="groupPicFile">Remove</button></img>
-                                <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="groupPicFile" name="file"
-                                             accept="media/group_pics/*" ngf-max-size="2MB" required
-                                             ngf-model-invalid="errorFile">
-                                      <i class="far fa-image" >
-                                  </i></button>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" ng-click="groupCtrl.createGroup(group_name, groupPicFile.name);"
-                                        class="btn btn-login">Create</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
                       </div>
-
-                        <div class="modal-footer">
-                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                      <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-dismiss="modal"
                                      ng-click="groupCtrl.isNewGroupModalToggled = false"> Close </button>
-                        </div>
-
-                     </div>
+                      </div>
+                    </div>
                   </div>
               </div>
           </div>

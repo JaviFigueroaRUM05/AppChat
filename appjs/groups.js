@@ -101,22 +101,27 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
 
         this.createGroup = function(group_name, group_photo){
           console.log(group_photo);
-          if (!group_photo){ group_photo_name = ""; }
-          else { group_photo_name = group_photo;}
+          if(group_name){
+              if (!group_photo){ group_photo_name = ""; }
+              else { group_photo_name = group_photo;}
 
-          $http({
-              method: 'POST',
-              url: 'http://127.0.0.1:5000/groups/create',
-              data: JSON.stringify({ "gname": group_name,
-                                    "gphoto": group_photo_name }),
-                }).then(
-                    function(response){ //TODO: Handle successes and exceptions.
-                        thisGroupCtrl.addSelfAsAdmin(response.data.group.gid);
-                        console.log(response.data.group.gid);
-                        thisGroupCtrl.isCreateGroupCompleted = true;
-                        thisGroupCtrl.isNewGroupModalToggled = false;
-                    })
-        };
+              $http({
+                  method: 'POST',
+                  url: 'http://127.0.0.1:5000/groups/create',
+                  data: JSON.stringify({ "gname": group_name,
+                                        "gphoto": group_photo_name }),
+                    }).then(
+                        function(response){
+
+                            if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                            else{
+                                thisGroupCtrl.addSelfAsAdmin(response.data.group.gid);
+                                console.log(response.data.group.gid);
+                                thisGroupCtrl.isCreateGroupCompleted = true;
+                                thisGroupCtrl.isNewGroupModalToggled = false;
+                                }
+                        })
+        }};
 
 
         this.addSelfAsAdmin = function(gid){
@@ -126,9 +131,12 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
               data: JSON.stringify({ "uid": $cookies.get('uid'),
                                     "isAdmin": "true" }),
                 }).then(
-                    function(response){ //TODO: Handle successes and exceptions.
-                        thisGroupCtrl.getGroupInfo();
-                        console.log(response.data);
+                    function(response){
+                        if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                        else{
+                            thisGroupCtrl.getGroupInfo();
+                            console.log(response.data);
+                            }
                     })
         };
 
@@ -139,13 +147,16 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
               method: 'DELETE',
               url: 'http://127.0.0.1:5000/groups/' + thisGroupCtrl.currentGid + '/delete-group',
                  }).then(
-                    function(response){ //TODO: Handle successes and exceptions.
+                    function(response){
+                         if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                        else{
                         thisGroupCtrl.currentGid = 0;
                         thisGroupCtrl.isDeleteGroupCompleted = true;
                         thisGroupCtrl.isBarToggled = false;
                         thisGroupCtrl.getGroupInfo();
 
                         console.log(response.data);
+                        }
                     })
         };
 
