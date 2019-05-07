@@ -11,6 +11,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.isNewGroupModalToggled = false;
         this.groupAlreadyExistsError = false;
         this.currentGid = 0;
+        this.isActiveUserAdmin = false;
 
         this.selected_u_email="";
         this.selected_u_fname="";
@@ -53,7 +54,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
 
         this.showUserModalInfo = function(email, fname, lname, phone, uname){
           if(thisGroupCtrl.isUserModalToggled == false){
-            console.log(thisGroupCtrl.isUserModalToggled);
+           // console.log(thisGroupCtrl.isUserModalToggled);
             thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
             thisGroupCtrl.createUserModal(email, fname, lname, phone, uname);
           } else {
@@ -65,18 +66,25 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           console.log(groupName)
           thisGroupCtrl.groupName = groupName;
           thisGroupCtrl.groupUsersList.length = 0;
+
           $http({
             method: 'GET',
             url: 'http://127.0.0.1:5000/groups/'+ gid
+              }).then(
+                      function(response){
+                        var gParticipants = response.data.participants
 
-          }).then(function(response){
-            var gParticipants = response.data.participants
-            console.log(gParticipants)
-            for(user in gParticipants){
-              thisGroupCtrl.groupUsersList.push(gParticipants[user]);
-            }
-          });
+                        for(user in gParticipants){
+                          thisGroupCtrl.groupUsersList.push(gParticipants[user]);
 
+                          if(thisGroupCtrl.groupUsersList
+                                        [thisGroupCtrl.groupUsersList.length - 1].uid  == $cookies.get("uid")){
+                            thisGroupCtrl.isActiveUserAdmin =
+                                                    thisGroupCtrl.groupUsersList
+                                                                [thisGroupCtrl.groupUsersList.length - 1].isadmin;
+                          }
+                        }
+                      });
         };
 
         this.postMsg = function(){
