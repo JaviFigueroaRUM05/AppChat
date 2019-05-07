@@ -4,6 +4,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
 
         this.groupList = [];
         this.groupUsersList = [];
+        this.contactsNotInGroupList = [];
         this.counter  = 2;
         this.groupName= " ... ";
         this.isBarToggled = false;
@@ -137,6 +138,24 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                         else{
                             thisGroupCtrl.getGroupInfo();
                             console.log(response.data);
+                            }
+                    })
+        };
+
+        this.getContactsNotInGroup = function(){
+          $http({
+              method: 'GET',
+              url: 'http://127.0.0.1:5000/user/contacts/not-in-group/'+ thisGroupCtrl.currentGid,
+              headers: {'Authorization': $cookies.get('uid')}
+                }).then(
+                    function(response){
+                        if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                        else{
+                            thisGroupCtrl.contactsNotInGroupList.length=0;
+                            for(contact in response.data.contacts){
+                                thisGroupCtrl.contactsNotInGroupList.push(response.data.contacts[contact]);
+                            }
+                            console.log(thisGroupCtrl.contactsNotInGroupList);
                             }
                     })
         };

@@ -37,7 +37,8 @@
             </li>
 
             <li class="nav-title"> Participants  </li>
-            <li class="nav-title-add" ng-click = "groupCtrl.isAddParticipantModalToggled = true;">
+            <li class="nav-title-add" ng-click = "groupCtrl.isAddParticipantModalToggled = true;
+                                                    groupCtrl.getContactsNotInGroup();">
                 <span class="nav-title-add"> Add Participants </span>
                 <i class="fas fa-plus-square"></i>
             </li>
@@ -240,6 +241,14 @@
                       <div class="modal-body">
                         <div class="col-md-11">
                           <h3> Select a participant to add to this chat group: </h3></br>
+                            <li ng-repeat="user in groupCtrl.contactsNotInGroupList" class="nav-item"
+                                ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname)" >
+                                <a class="nav-link">
+                                    <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
+                                        {{ user.uname }}
+                                    <i class="fas fa-award" ng-show="user.isadmin"></i>
+                                </a>
+                            </li>
 
                         </div>
                       </div>
