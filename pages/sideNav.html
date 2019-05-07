@@ -3,7 +3,7 @@
 <div class="sidebar">
   <div class="sidebar-nav">
     <ul class="nav">
-        <li class="nav-title-add" ng-click="groupCtrl.createGroup()">
+        <li class="nav-title-add" ng-click="groupCtrl.isNewGroupModalToggled = true">
           <span class="nav-title-add"> Add Group </span>
         <i class="fas fa-plus-square"></i>
         </li>
@@ -92,3 +92,57 @@
   </div>
   </div>
   </div>
+
+
+
+    <!-- Create new group modal -->
+      <div class="ng-cloak" ng-show="groupCtrl.isNewGroupModalToggled">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Create new group </h4>
+                     </div>
+
+                      <div class="modal-body">
+                        <form class="form">
+
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                <input type="text" style="background:white" class="form-control" ng-model="group_name" placeholder="Group name" required="" maxlength="20" ng-change = "groupCtrl.groupAlreadyExistsError = false;"/>
+                                <span class="text-danger" ng-show = groupCtrl.groupAlreadyExistsError>The group name {{group_name}} already exists in our system.</span>
+                            </div>
+
+
+                            <!-- Upload image not functional, and giving issues with uploading no image.-->
+                            <div class="form-group">
+                                <img ngf-thumbnail="groupPicFile"> <button class="btn btn-warning" ng-click="picFile = null" ng-show="groupPicFile">Remove</button></img>
+                                <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="groupPicFile" name="file"
+                                             accept="media/group_pics/*" ngf-max-size="2MB" required
+                                             ngf-model-invalid="errorFile">
+
+                                      <i class="far fa-image" >
+                                  </i></button>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" ng-click="groupCtrl.groupAlreadyExistsError = false; groupCtrl.createGroup(group_name, groupPicFile.name);"
+                                        class="btn btn-login">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                      </div>
+
+                        <div class="modal-footer">
+                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="groupCtrl.isNewGroupModalToggled = false"> Close </button>
+                        </div>
+
+                     </div>
+                  </div>
+              </div>
+          </div>
+      </div>

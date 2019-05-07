@@ -4,7 +4,9 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
 
         this.isNewContactModalToggled = false;
         this.isUserModalToggled = false;
+        this.isDeleteUserModalToggled = false;
         this.contactSuccessfullyAdded = false;
+        this.contactSuccessfullyDeleted = false;
         this.contactNotFoundError = false;
         this.alreadyContactWarning = false;
         this.selected_u_email="";
@@ -12,22 +14,24 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
         this.selected_u_lname="";
         this.selected_u_phone="";
         this.selected_u_uname="";
+        this.selected_u_uid="";
 
         this.contactList = [];
 
-        this.createUserModal = function(email, fname, lname, phone, uname){
+        this.createUserModal = function(email, fname, lname, phone, uname, uid){
           thisCtrl.selected_u_email = email;
           thisCtrl.selected_u_lname = lname;
           thisCtrl.selected_u_fname = fname;
           thisCtrl.selected_u_phone = phone;
           thisCtrl.selected_u_uname = uname;
+          thisCtrl.selected_u_uid = uid;
         };
 
-      this.showUserModalInfo = function(email, fname, lname, phone, uname){
+      this.showUserModalInfo = function(email, fname, lname, phone, uname, uid){
         if(thisCtrl.isUserModalToggled == false){
           console.log(thisCtrl.isUserModalToggled);
           thisCtrl.isUserModalToggled = !thisCtrl.isUserModalToggled;
-          thisCtrl.createUserModal(email, fname, lname, phone, uname);
+          thisCtrl.createUserModal(email, fname, lname, phone, uname, uid);
         } else {
             thisCtrl.isUserModalToggled = !thisCtrl.isUserModalToggled;
         }
@@ -89,8 +93,27 @@ angular.module('AppChat').controller('UserNavController', ['$http', '$log', '$sc
             else{ thisCtrl.addContactByPhone(contact_first_name, contact_last_name, phone_email); }
         };
 
+        this.deleteContact = function(cid){
+            console.log("Test for deleting user: " + cid);
 
-       //TODO: modify backend and coordinate this method with html to properly add
+            $http({
+            method: 'DELETE',
+            url: 'http://127.0.0.1:5000/user/delete-contact/' + cid,
+            headers: { "Authorization": $cookies.get('uid')},
+             }).then(
+                function(success_response){
+                     if(success_response.data.hasOwnProperty('Error')){
+                        errorMessage = success_response.data.Error;
+                        console.log(errorMessage);
+                      }
+                    else { console.log(success_response);
+                            thisCtrl.contactSuccessfullyDeleted = true;
+                            thisCtrl.getUserContacts();} },
+                function(error_response){ console.log(error_response);}
+          )
+        };
+
+
        // new contact.
         this.addContactByPhone = function(contact_first_name, contact_last_name, contact_phone_email){
             $http({
