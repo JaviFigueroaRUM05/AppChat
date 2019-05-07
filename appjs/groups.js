@@ -9,7 +9,9 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.isBarToggled = false;
         this.isUserModalToggled = false;
         this.isNewGroupModalToggled = false;
-        this.groupAlreadyExistsError = false;
+        this.isCreateGroupCompleted = false;
+        this.isDeleteGroupModalToggled = false;
+        this.isDeleteGroupCompleted = false;
         this.currentGid = 0;
         this.isActiveUserAdmin = false;
 
@@ -111,6 +113,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                     function(response){ //TODO: Handle successes and exceptions.
                         thisGroupCtrl.addSelfAsAdmin(response.data.group.gid);
                         console.log(response.data.group.gid);
+                        thisGroupCtrl.isCreateGroupCompleted = true;
                         thisGroupCtrl.isNewGroupModalToggled = false;
                     })
         };
@@ -125,6 +128,23 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                 }).then(
                     function(response){ //TODO: Handle successes and exceptions.
                         thisGroupCtrl.getGroupInfo();
+                        console.log(response.data);
+                    })
+        };
+
+
+        this.deleteGroup = function(){
+            console.log(thisGroupCtrl.currentGid);
+            $http({
+              method: 'DELETE',
+              url: 'http://127.0.0.1:5000/groups/' + thisGroupCtrl.currentGid + '/delete-group',
+                 }).then(
+                    function(response){ //TODO: Handle successes and exceptions.
+                        thisGroupCtrl.currentGid = 0;
+                        thisGroupCtrl.isDeleteGroupCompleted = true;
+                        thisGroupCtrl.isBarToggled = false;
+                        thisGroupCtrl.getGroupInfo();
+
                         console.log(response.data);
                     })
         };

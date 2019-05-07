@@ -83,16 +83,19 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
           console.log(thisMessageCtrl.activeGroup)
           console.log(thisMessageCtrl.activeGroupPhoto)
-          $http({
-            method: 'GET',
-            url: 'http://127.0.0.1:5000/groups/' + gid + '/posts'
-          }).then(function(response){
-            thisMessageCtrl.messageList.length = 0
-            var posts = response.data.Posts
-            for (item in posts){
-              thisMessageCtrl.messageList.push(posts[item])
-            }
-          });
+
+          if(gid >=0){ // Added this if because when I delete a chat, I pass this method a -1 as gid. -Brian
+              $http({
+                method: 'GET',
+                url: 'http://127.0.0.1:5000/groups/' + gid + '/posts'
+              }).then(function(response){
+                thisMessageCtrl.messageList.length = 0
+                var posts = response.data.Posts
+                for (item in posts){
+                  thisMessageCtrl.messageList.push(posts[item])
+                }
+              });
+          }
         };
 
         this.postMsg = function(media){

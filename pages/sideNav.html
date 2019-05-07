@@ -54,10 +54,18 @@
             <i class="fas fa-award" ng-show="user.isadmin"></i>
             </a>
         </li>
-        <li class="nav-title-add" ng-show = "groupCtrl.isActiveUserAdmin">
+
+
+
+              <!-- TODO: implement delete chat group functionality-->
+        <li class="nav-title-add" ng-show = "groupCtrl.isActiveUserAdmin" ng-click = "groupCtrl.isDeleteGroupModalToggled = true;">
             <span class="nav-title-add" > Delete Chat Group </span>
             <i class="fas fa-plus-square"></i>
         </li>
+
+
+
+
     </ul>
 </div>
 
@@ -108,7 +116,7 @@
 
                     <div class="modal-content">
                       <div class="modal-header">
-                         <h4 class="modal-title"> Create new group </h4>
+                         <h4 class="modal-title"> Create New Group </h4>
                      </div>
 
                       <div class="modal-body">
@@ -116,8 +124,8 @@
 
                         <div class="col-md-11">
                             <div class="form-group">
-                                <input type="text" style="background:white" class="form-control" ng-model="group_name" placeholder="Group name" required="" maxlength="20" ng-change = "groupCtrl.groupAlreadyExistsError = false;"/>
-                                <span class="text-danger" ng-show = groupCtrl.groupAlreadyExistsError>The group name {{group_name}} already exists in our system.</span>
+                                <input type="text" style="background:white" class="form-control" ng-model="group_name"
+                                       placeholder="Group name" required="" maxlength="20"/>
                             </div>
 
 
@@ -127,13 +135,12 @@
                                 <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="groupPicFile" name="file"
                                              accept="media/group_pics/*" ngf-max-size="2MB" required
                                              ngf-model-invalid="errorFile">
-
                                       <i class="far fa-image" >
                                   </i></button>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" ng-click="groupCtrl.groupAlreadyExistsError = false; groupCtrl.createGroup(group_name, groupPicFile.name);"
+                                <button type="submit" ng-click="groupCtrl.createGroup(group_name, groupPicFile.name);"
                                         class="btn btn-login">Create</button>
                             </div>
                         </div>
@@ -150,3 +157,89 @@
               </div>
           </div>
       </div>
+
+<!-- Create group Completed modal -->
+      <div class="ng-cloak" ng-show="groupCtrl.isCreateGroupCompleted">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Create New Group </h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-11">
+                          <h3> {{group_name}} has been Created! </h3></br>
+                            <p>You are the admin of this chat!</p>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="groupCtrl.isCreateGroupCompleted = false;"> Close </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+ <!-- Delete group modal -->
+      <div class="ng-cloak" ng-show="groupCtrl.isDeleteGroupModalToggled">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Delete Chat Group </h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-11">
+                          <h3> Are you sure you want to delete {{groupCtrl.groupName}} ? </h3></br>
+                          <p> Once deleted, neither you nor any existing participants will be able
+                              to post or see messages in the chat group. </p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" ng-click="groupCtrl.isDeleteGroupModalToggled = false;
+                                                            groupCtrl.deleteGroup();
+                                                            chatCtrl.showPostsInGroup(-1,'', '');"
+                                    class="btn btn-login">Delete</button>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="groupCtrl.isDeleteGroupModalToggled = false;"> Close </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<!-- Delete group Completed modal -->
+      <div class="ng-cloak" ng-show="groupCtrl.isDeleteGroupCompleted">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Delete Chat Group </h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-11">
+                          <h3> {{groupCtrl.groupName}} has been deleted. </h3></br>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="groupCtrl.isDeleteGroupCompleted = false;"> Close </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+</div>
