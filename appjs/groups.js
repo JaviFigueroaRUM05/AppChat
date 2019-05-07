@@ -12,6 +12,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.isCreateGroupCompleted = false;
         this.isDeleteGroupModalToggled = false;
         this.isDeleteGroupCompleted = false;
+        this.isAddParticipantModalToggled = false;
         this.currentGid = 0;
         this.isActiveUserAdmin = false;
 

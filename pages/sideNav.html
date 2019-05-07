@@ -37,7 +37,7 @@
             </li>
 
             <li class="nav-title"> Participants  </li>
-            <li class="nav-title-add">
+            <li class="nav-title-add" ng-click = "groupCtrl.isAddParticipantModalToggled = true;">
                 <span class="nav-title-add"> Add Participants </span>
                 <i class="fas fa-plus-square"></i>
             </li>
@@ -220,6 +220,32 @@
                       <div class="modal-footer">
                          <button class="btn btn-secondary" type="button" data-dismiss="modal"
                                      ng-click="groupCtrl.isDeleteGroupCompleted = false;"> Close </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<!-- Add a participant modal -->
+      <div class="ng-cloak" ng-show="groupCtrl.isAddParticipantModalToggled">
+          <div class = "modal-backdrop">
+              <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+                    aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+                  <div class="modal-dialog modal-success" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                         <h4 class="modal-title"> Add Participant </h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-11">
+                          <h3> Select a participant to add to this chat group: </h3></br>
+
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                     ng-click="groupCtrl.isAddParticipantModalToggled = false;"> Close </button>
                       </div>
                     </div>
                   </div>
