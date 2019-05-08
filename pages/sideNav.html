@@ -47,7 +47,7 @@
       <div class="sidebar-nav">
         <ul class="nav">
           <li ng-repeat="user in groupCtrl.groupUsersList" class="nav-item"
-                ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname, user.uid)" >
+                ng-click="groupCtrl.showUserModalInfo(user.email, user.first_name, user.last_name, user.phone, user.uname, user.uid, user.isadmin)" >
             <a class="nav-link">
                 <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
                     {{ user.uname }}
@@ -82,7 +82,7 @@
                       <p> phone: {{ groupCtrl.selected_u_phone }} </p>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" type="button"
+                        <button class="btn btn-danger" type="button" ng-show="!groupCtrl.selected_u_isadmin"
                         data-dismiss="modal" ng-click="groupCtrl.isUserModalToggled = !groupCtrl.isUserModalToggled;
                                                         groupCtrl.isRemoveParticipantModalToggled = true;"> Remove </button>
 
@@ -286,7 +286,8 @@
                       </div>
                       <div class="modal-footer">
                             <button type="submit" ng-click="groupCtrl.isRemoveParticipantModalToggled = false;
-                                                            groupCtrl.removeParticipant(groupCtrl.selected_u_uid);"
+                                                            groupCtrl.removeParticipant(groupCtrl.selected_u_uid);
+                                                            chatCtrl.activeGroupName='';"
                                     class="btn btn-danger">Remove</button>
 
                          <button class="btn btn-secondary" type="button" data-dismiss="modal"

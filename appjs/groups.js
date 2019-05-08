@@ -23,6 +23,8 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.selected_u_lname="";
         this.selected_u_phone="";
         this.selected_u_uname="";
+        this.selected_u_uid="";
+        this.selected_u_isadmin = "";
 
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
@@ -49,20 +51,21 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           }
           };
 
-          this.createUserModal = function(email, fname, lname, phone, uname, uid){
+          this.createUserModal = function(email, fname, lname, phone, uname, uid, isadmin){
             thisGroupCtrl.selected_u_email = email;
             thisGroupCtrl.selected_u_lname = lname;
             thisGroupCtrl.selected_u_fname = fname;
             thisGroupCtrl.selected_u_phone = phone;
             thisGroupCtrl.selected_u_uname = uname;
             thisGroupCtrl.selected_u_uid = uid;
+            thisGroupCtrl.selected_u_isadmin = isadmin;
           };
 
-        this.showUserModalInfo = function(email, fname, lname, phone, uname, uid){
+        this.showUserModalInfo = function(email, fname, lname, phone, uname, uid, isadmin){
           if(thisGroupCtrl.isUserModalToggled == false){
            // console.log(thisGroupCtrl.isUserModalToggled);
             thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
-            thisGroupCtrl.createUserModal(email, fname, lname, phone, uname, uid);
+            thisGroupCtrl.createUserModal(email, fname, lname, phone, uname, uid, isadmin);
           } else {
               thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
           }
@@ -189,8 +192,15 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                 function(response){
                     if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
                     else{
-                        thisGroupCtrl.showGroupInfo(thisGroupCtrl.groupName, thisGroupCtrl.currentGid);
-                        console.log(response.data);
+                        if(uid == $cookies.get('uid')){
+                            thisGroupCtrl.isBarToggled=false;
+                            thisGroupCtrl.currentGid = 0;
+                            thisGroupCtrl.getGroupInfo();
+                        }
+                        else{
+                            thisGroupCtrl.showGroupInfo(thisGroupCtrl.groupName, thisGroupCtrl.currentGid);
+                            console.log(response.data);
+                            }
                         }
                 })
         };
