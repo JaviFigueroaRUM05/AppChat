@@ -34,6 +34,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             $log.error("Message Loaded: ", JSON.stringify(thisGroupCtrl.groupList));
         };
 
+        // I think this isn't used if my sidebar toggle modification is implemented properly. -Brian
         this.toggleBar = function(gname, gid){
             if(thisGroupCtrl.isBarToggled==false){
                 thisGroupCtrl.currentGid = gid;
@@ -109,14 +110,14 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.createGroup = function(group_name, group_photo){
           console.log(group_photo);
           if(group_name){
-              if (!group_photo){ group_photo_name = ""; }
+              if (!group_photo){ group_photo_name = "succulenticon.jpg"; }
               else { group_photo_name = group_photo;}
 
               $http({
                   method: 'POST',
                   url: 'http://127.0.0.1:5000/groups/create',
                   data: JSON.stringify({ "gname": group_name,
-                                        "gphoto": group_photo_name }),
+                                        "gphoto": "media/group_pics/" + group_photo_name }),
                     }).then(
                         function(response){
 

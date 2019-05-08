@@ -11,11 +11,12 @@
         <li class="nav-title"> Groups
         </li>
 
-        <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID, group.gName, group.gPhoto)">
+        <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID, group.gName, group.gPhoto);
+groupCtrl.groupName = group.gName; groupCtrl.currentGid=group.GID; groupCtrl.showGroupInfo(group.gName, group.GID);">
           <a class="nav-link">
             <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
               {{ group.gName }}
-              <i class="fas fa-angle-right" ng-click="groupCtrl.toggleBar(group.gName, group.GID)"></i>
+              <i class="fas fa-angle-right" ng-click="groupCtrl.isBarToggled= !groupCtrl.isBarToggled;"></i>
             </a>
         </li>
     </ul>
@@ -28,7 +29,7 @@
       <div class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item-user" >
-              <a>  <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
+              <a>  <img ng-src="{{ chatCtrl.activeGroupPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
               </a>
             </li>
 
@@ -120,8 +121,8 @@
 
                                 <!-- Upload image not functional, and giving issues with uploading no image.-->
                                 <div class="form-group">
-                                    <img ngf-thumbnail="groupPicFile">
-                                        <button class="btn btn-warning" ng-click="picFile = null" ng-show="groupPicFile">Remove</button>
+                                    <img ngf-thumbnail="groupPicFile" width="20%" height="auto">
+                                        <button class="btn btn-warning" ng-click="groupPicFile = null" ng-show="groupPicFile">Remove</button>
                                     </img>
                                     <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="groupPicFile" name="file"
                                                  accept="media/group_pics/*" ngf-max-size="2MB" required

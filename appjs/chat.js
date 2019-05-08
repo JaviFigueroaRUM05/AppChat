@@ -9,7 +9,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.isPostModalToggled = false;
         this.activeGroup = "";
         this.activeGroupName="";
-        this.activeGroupPhoto= "media/group_pics/succulenticon.jpg";
+        this.activeGroupPhoto= "";
         this.postInformation = [];
         this.postUserReaction = [];
         this.test = false;
@@ -80,9 +80,10 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.showPostsInGroup = function(gid, gname, gphoto){
           thisMessageCtrl.activeGroup = gid;
           thisMessageCtrl.activeGroupName = gname;
+          thisMessageCtrl.activeGroupPhoto = gphoto;
 
-          console.log(thisMessageCtrl.activeGroup)
-          console.log(thisMessageCtrl.activeGroupPhoto)
+//          console.log(thisMessageCtrl.activeGroup)
+//          console.log(thisMessageCtrl.activeGroupPhoto)
 
           if(gid >=0){ // Added this if because when I delete a chat, I pass this method a -1 as gid. -Brian
               $http({
