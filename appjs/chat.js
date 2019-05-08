@@ -125,9 +125,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.postMsg = function(media){
             var msg = thisMessageCtrl.newText;
-            if(!msg && !media){
-                console.log('Nothing to post.');
-            }
+            if(!msg && !media){ console.log('Nothing to post.'); } // If no message or media, don't do anything.
             else{
                 var pic= '';
                 var mediaType="n";
@@ -150,7 +148,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
     //            var nextId = thisMessageCtrl.counter++;
                // thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "pdate":  dateTime, "media": pic, "like" : 2, "dislike" : 3});
 
-                if(!thisMessageCtrl.isReplyTabToggled){
+                if(!thisMessageCtrl.isReplyTabToggled){ // If not a reply, create a post
                      $http({
                           method: 'POST',
                           url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup +'/create-post',
@@ -172,7 +170,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                                 })
                     }
 
-                else{
+                else{ // If it is a reply, create a reply post.
                     $http({
                           method: 'POST',
                           url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup +'/reply',

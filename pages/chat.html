@@ -12,36 +12,36 @@
                         <div class="card-header">
                           <div ng-if="chatCtrl.isReply(m.original_post)" ng-init="post_info=chatCtrl.lookUpOriginalPost(m.original_post)">
                             <a class="nav navbar-nav nav-link" href=""> Reply to: {{ post_info }}  </a>
-                            </div>
+                          </div>
                             <!-- Card Title is the person who write the message -->
 
-                            <h4 class="card-title">
-                              {{m.uname}}</h4>
+                            <h4 class="card-title">{{m.uname}}</h4>
                               <a class="icon">  <i ng-click="chatCtrl.togglePostModal(m.postid)" class="fas fa-ellipsis-h"></i></a>
                               <a class="icon">
-                                  <!-- TODO: Sometimes this ng-click doesn't get loaded into the page. Fix bug.-->
+                                  <!-- TODO: Sometimes this ng-click doesn't get loaded into the page. Fix bug. could be cache.-->
                                   <i ng-click="chatCtrl.updateReplyTab(m.postid, m.uname, m.message)" class="fas fa-reply"> </i>
                               </a>
-
                             <h6> date posted: {{m.pdate}} </h6>
-
-
-                            <!-- Here comes the message text -->
                         </div>
 
                         <div class="card-body">
                           <div class="card-img-container">
                             <img class="card-img" ng-src="{{m.media}}"></img>
                           </div>
-                            <p>
-                                {{m.message}}
-                            </p>
+                            <!-- Here comes the message text -->
+                            <p> {{m.message}} </p>
                         </div>
                         <div class="card-footer">
-				<button id="like_btn{{m.postid}}" class="btn btn-success mr-1 ml-2" ng-click="chatCtrl.pressLike(m)" ng-init="chatCtrl.isLiked(m)"><i class="fas fa-thumbs-up">
-                            </i></button> <a ng-bind="m.likes || '0'">  </a>
-			    <button id="dislike_btn{{m.postid}}" class="btn btn-success mr-2 ml-2" ng-click="chatCtrl.pressDislike(m)" ng-init="chatCtrl.isDisliked(m)"><i class="fas fa-thumbs-down">
-                            </i></button><a ng-bind="m.dislikes || '0'">  </a>
+                            <!-- TODO: figure out why the like/dislike buttons don't work without console on. -Brian -->
+                            <button id="like_btn{{m.postid}}" class="btn btn-success mr-1 ml-2"
+                                    ng-click="chatCtrl.pressLike(m)" ng-init="chatCtrl.isLiked(m)">
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                            <a ng-bind="m.likes || '0'">  </a>
+                            <button id="dislike_btn{{m.postid}}" class="btn btn-success mr-2 ml-2"
+                                    ng-click="chatCtrl.pressDislike(m)" ng-init="chatCtrl.isDisliked(m)">
+                                <i class="fas fa-thumbs-down"></i></button>
+                            <a ng-bind="m.dislikes || '0'">  </a>
                         </div>
                     </div>
                 </div>
@@ -52,37 +52,31 @@
 
 <div class="ng-cloak" ng-show="chatCtrl.isPostModalToggled">
   <div class = "modal-backdrop">
-  <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
-        aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
+      <div id="successModal" class="modal fade show" tabindex="-1" role="dialog"
+            aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
 
-    <div class="modal-dialog modal-success" role="document">
+        <div class="modal-dialog modal-success" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"> Post Information </h2>
+                </div>
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title"> Post Information </h2>
+                <div class="modal-body">
+                  <p> {{ chatCtrl.postInformation[0].media }} </p>
+                  <h4> {{ chatCtrl.postInformation[0].message }} </h4>
+                  <p>  </p>
+                  <h6> date posted : {{ chatCtrl.postInformation[0].pdate }} </h6>
+                  <h6> Posted by : {{ chatCtrl.postInformation[0].uname }} </h6> </br>
+                  <h4> Reactions: </h4>
+                  <h6 ng-repeat="user in chatCtrl.postUserReaction" > {{user.uname}} : {{ user.rtype }} </br> </h6>
+                </div>
+
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" type="button"
+                    data-dismiss="modal" ng-click="chatCtrl.isPostModalToggled = false"> Close </button>
+                </div>
+            </div>
+        </div>
       </div>
-
-    <div class="modal-body">
-      <p> {{ chatCtrl.postInformation[0].media }} </p>
-      <h4> {{ chatCtrl.postInformation[0].message }} </h4>
-      <p>  </p>
-      <h6> date posted : {{ chatCtrl.postInformation[0].pdate }} </h6>
-      <h6> Posted by : {{ chatCtrl.postInformation[0].uname }} </h6> </br>
-      <h4> Reactions: </h4>
-      <h6 ng-repeat="user in chatCtrl.postUserReaction" >
-        {{user.uname}} : {{ user.rtype }} </br>
-      </h6>
-
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-secondary" type="button"
-        data-dismiss="modal" ng-click="chatCtrl.isPostModalToggled = !chatCtrl.isPostModalToggled"> Close </button>
-      </div>
   </div>
-
-  </div>
-
-  </div>
-  </div>
-  </div>
+</div>

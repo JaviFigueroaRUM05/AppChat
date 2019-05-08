@@ -10,7 +10,8 @@
             <i class="fas fa-times"> </i>
         </a>
 </div>
-<div class="app-footer" ng-show="chatCtrl.activeGroup">
+<!-- TODO: figure out why this ng-show isn't working without console on (http cache disabled)-->
+<div ng-show="chatCtrl.activeGroup" class="app-footer" >
     <img ngf-thumbnail="picFile">
         <button class="btn btn-warning" ng-click="picFile = null" ng-show="picFile">Remove</button>
     </img>
