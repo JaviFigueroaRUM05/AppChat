@@ -54,7 +54,7 @@
                 <i class="fas fa-award" ng-show="user.isadmin"></i>
             </a>
           </li>
-          <li class="nav-title-add" ng-show = "groupCtrl.isActiveUserAdmin" ng-click = "groupCtrl.isDeleteGroupModalToggled = true;">
+          <li class="nav-title-add" style="background-color:#dc143c ! important;" ng-show = "groupCtrl.isActiveUserAdmin" ng-click = "groupCtrl.isDeleteGroupModalToggled = true;">
              <span class="nav-title-add" > Delete Chat Group </span>
              <i class="fas fa-plus-square"></i>
           </li>
@@ -244,14 +244,16 @@
                       <div class="modal-body">
                         <div class="col-md-11">
                           <h3> Select a participant to add to {{groupCtrl.groupName}}: </h3></br>
-                            <li ng-repeat="user in groupCtrl.contactsNotInGroupList" class="nav-item"
-                                ng-click="groupCtrl.addParticipant(user.uid);
-                                            groupCtrl.isAddParticipantModalToggled = false;" >
-                                <a href= "" class="nav-link">
-                                    <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
-                                        {{ user.uname }}
-                                </a>
-                            </li>
+                            <ul style="height:400px; overflow-y:scroll;">
+                                <li ng-repeat="user in groupCtrl.contactsNotInGroupList" class="nav-item"
+                                    ng-click="groupCtrl.addParticipant(user.uid);
+                                                groupCtrl.isAddParticipantModalToggled = false;" >
+                                    <a href= "" class="nav-link">
+                                        <img ng-src="media/profile_pics/corgi-monocle.jpg" class="avatar img-avatar" ></img>
+                                            {{ user.uname }}
+                                    </a>
+                                </li>
+                            </ul>
 
                         </div>
                       </div>
