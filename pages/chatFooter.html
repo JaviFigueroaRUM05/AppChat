@@ -1,12 +1,26 @@
+<div class="app-footer" style="position:relative ! important;"
+     ng-show="chatCtrl.isReplyTabToggled">
+    <div>
+        <h5>Replying to {{chatCtrl.OPuname}}:</h5>
+        <div style="position:absolute; left: 30px;">
+            <i style=" height: 150px; overflow:auto;">{{chatCtrl.OPmessage}}</i>
+        </div>
+    </div>
+        <a class="icon" style="position:absolute; right: 15px; top: 15px;" ng-click="chatCtrl.closeReplyTab();" href="">
+            <i class="fas fa-times"> </i>
+        </a>
+</div>
 <div class="app-footer">
-<img ngf-thumbnail="picFile"> <button class="btn btn-warning" ng-click="picFile = null" ng-show="picFile">Remove</button></img>
-<button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="picFile" name="file"
-             accept="media/group_pics/*" ngf-max-size="2MB" required
-             ngf-model-invalid="errorFile">
-
-      <i class="far fa-image" >
-  </i></button>
-  <textarea class="form-control is-valid" ng-model="chatCtrl.newText" placeholder="Write Message"></textarea>
-  <button class="btn btn-success-send-bubble mr-2 ml-2" ng-click="chatCtrl.postMsg(picFile)"><i class="far fa-comment" >
-  </i></button>
+    <img ngf-thumbnail="picFile">
+        <button class="btn btn-warning" ng-click="picFile = null" ng-show="picFile">Remove</button>
+    </img>
+    <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="picFile" name="file"
+                 accept="media/group_pics/*" ngf-max-size="2MB" required
+                 ngf-model-invalid="errorFile">
+      <i class="far fa-image" ></i>
+    </button>
+    <textarea class="form-control is-valid" ng-model="chatCtrl.newText" placeholder="Write Message"></textarea>
+    <button class="btn btn-success-send-bubble mr-2 ml-2" ng-click="chatCtrl.postMsg(picFile)">
+        <i class="far fa-comment" ></i>
+    </button>
 </div>
