@@ -100,14 +100,13 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             $log.error("Message Loaded: ", JSON.stringify(thisMessageCtrl.messageList));
         };
 
-        this.showPostsInGroup = function(gid, gname, gphoto){
+        this.showPostsInGroup = function(gid, gname){
           thisMessageCtrl.closeReplyTab(); // Done to keep replies from different groups open as you switch. -Brian
 
           thisMessageCtrl.activeGroup = gid;
           thisMessageCtrl.activeGroupName = gname;
 
           console.log(thisMessageCtrl.activeGroup)
-          console.log(thisMessageCtrl.activeGroupPhoto)
 
           if(gid >=0){ // Added this if because when I delete a chat, I pass this method a -1 as gid. -Brian
               $http({
@@ -125,22 +124,77 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.postMsg = function(media){
-            var pic="";
-            console.log(media);
-            if (media){
-                pic = "media/group_pics/" + media.name;
-            }
-            var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date+' '+time;
             var msg = thisMessageCtrl.newText;
-            // Need to figure out who I am
-            var author = thisMessageCtrl.username;
-            var nextId = thisMessageCtrl.counter++;
-            thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "pdate":  dateTime, "media": pic, "like" : 2, "dislike" : 3});
-            thisMessageCtrl.newText = "";
-            thisMessageCtrl.closeReplyTab();
+            if(!msg && !media){
+                console.log('Nothing to post.');
+            }
+            else{
+                var pic= '';
+                var mediaType="n";
+                console.log(media);
+                if (media){
+                    pic = "media/group_pics/" + media.name; // Only files in this folder allowed for now.
+                    if(media.name.includes(".jpg") ||
+                        media.name.includes(".jpeg") ||
+                            media.name.includes(".png")){
+                                 mediaType="p";
+                    }
+                }
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date+' '+time;
+
+                // Need to figure out who I am
+    //            var author = thisMessageCtrl.username;
+    //            var nextId = thisMessageCtrl.counter++;
+               // thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "pdate":  dateTime, "media": pic, "like" : 2, "dislike" : 3});
+
+                if(!thisMessageCtrl.isReplyTabToggled){
+                     $http({
+                          method: 'POST',
+                          url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup +'/create-post',
+                          data: JSON.stringify({ "pdate": dateTime,
+                                                "message": msg,
+                                                 "mediaType": mediaType,
+                                                 "media":pic,
+                                                 "uid": $cookies.get('uid')}),
+                            }).then(
+                                function(response){
+
+                                    if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                                    else{
+                                        console.log(response.data);
+                                        thisMessageCtrl.newText = "";
+                                        thisMessageCtrl.closeReplyTab();
+                                        thisMessageCtrl.showPostsInGroup(thisMessageCtrl.activeGroup, thisMessageCtrl.activeGroupName);
+                                        }
+                                })
+                    }
+
+                else{
+                    $http({
+                          method: 'POST',
+                          url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup +'/reply',
+                          data: JSON.stringify({ "pdate": dateTime,
+                                                "message": msg,
+                                                 "mediaType": mediaType,
+                                                 "media":pic,
+                                                 "uid": $cookies.get('uid'),
+                                                 "opid": thisMessageCtrl.OPID}),
+                            }).then(
+                                function(response){
+
+                                    if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                                    else{
+                                        console.log(response.data);
+                                        thisMessageCtrl.newText = "";
+                                        thisMessageCtrl.closeReplyTab();
+                                        thisMessageCtrl.showPostsInGroup(thisMessageCtrl.activeGroup, thisMessageCtrl.activeGroupName);
+                                        }
+                                })
+                }
+               }
         };
 
 	this.isLiked = function(message) {
