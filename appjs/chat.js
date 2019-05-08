@@ -115,7 +115,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 var posts = response.data.Posts
                 for (item in posts){
                   thisMessageCtrl.messageList.push(posts[item])
-                  console.log(posts[item]);
                 }
               });
           }

@@ -244,7 +244,7 @@
                       <div class="modal-body">
                         <div class="col-md-11">
                           <h3> Select a participant to add to {{groupCtrl.groupName}}: </h3></br>
-                            <ul style="height:400px; overflow-y:scroll;">
+                            <ul style="height:400px; overflow:auto;">
                                 <li ng-repeat="user in groupCtrl.contactsNotInGroupList" class="nav-item"
                                     ng-click="groupCtrl.addParticipant(user.uid);
                                                 groupCtrl.isAddParticipantModalToggled = false;" >

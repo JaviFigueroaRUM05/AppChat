@@ -1,9 +1,12 @@
 <div class="app-footer" style="position:relative ! important;" ng-show="chatCtrl.isReplyTabToggled">
     <div>
-        <p>{{chatCtrl.OPID}} : {{chatCtrl.OPuname}} : {{chatCtrl.OPmessage}}</p>
+        <h5>Replying to {{chatCtrl.OPuname}}:</h5>
+        <div style="position:absolute; left: 30px;">
+            <i style=" height: 150px; overflow:auto;">{{chatCtrl.OPmessage}}</i>
+        </div>
     </div>
-        <a class="icon" style="position:absolute; right: 15px; top: 15px;">
-            <i class="fas fa-times" ng-click="chatCtrl.closeReplyTab();"> </i>
+        <a class="icon" style="position:absolute; right: 15px; top: 15px;" ng-click="chatCtrl.closeReplyTab();" href="">
+            <i class="fas fa-times"> </i>
         </a>
 </div>
 <div class="app-footer">
