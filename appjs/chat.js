@@ -33,6 +33,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             thisMessageCtrl.OPID=OPID;
             thisMessageCtrl.OPuname=OPuname;
             thisMessageCtrl.OPmessage=OPmessage;
+            console.log("clicked reply");
         };
 
         this.closeReplyTab = function(){
