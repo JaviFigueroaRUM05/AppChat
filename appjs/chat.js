@@ -20,6 +20,28 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.email="";
         this.phone="";
 
+        // Used to display reply tab and send replies.
+        this.OPID=-1;
+        this.OPuname="";
+        this.OPmessage="";
+        this.isReplyTabToggled=false;
+
+
+
+        this.updateReplyTab = function(OPID,OPuname, OPmessage){
+            thisMessageCtrl.isReplyTabToggled=true;
+            thisMessageCtrl.OPID=OPID;
+            thisMessageCtrl.OPuname=OPuname;
+            thisMessageCtrl.OPmessage=OPmessage;
+        };
+
+        this.closeReplyTab = function(){
+            thisMessageCtrl.isReplyTabToggled=false;
+            thisMessageCtrl.OPID=-1;
+            thisMessageCtrl.OPuname="";
+            thisMessageCtrl.OPmessage="";
+        };
+
         this.isReply = function(op){
           if(op){
             return true;
@@ -93,6 +115,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 var posts = response.data.Posts
                 for (item in posts){
                   thisMessageCtrl.messageList.push(posts[item])
+                  console.log(posts[item]);
                 }
               });
           }

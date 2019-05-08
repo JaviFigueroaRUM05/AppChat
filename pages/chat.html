@@ -18,7 +18,7 @@
                             <h4 class="card-title">
                               {{m.uname}}</h4>
                               <a class="icon">  <i ng-click="chatCtrl.togglePostModal(m.postid)" class="fas fa-ellipsis-h"></i></a>
-                              <a class="icon"> <i class="fas fa-reply"> </i> </a>
+                              <a class="icon"> <i class="fas fa-reply" ng-click="chatCtrl.updateReplyTab(m.postid, m.uname, m.message);"> </i> </a>
 
                             <h6> date posted: {{m.pdate}} </h6>
 
