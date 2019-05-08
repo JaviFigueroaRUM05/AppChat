@@ -160,6 +160,23 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                     })
         };
 
+        this.addParticipant = function(uid){
+         console.log(uid);
+         $http({
+          method: 'POST',
+          url: 'http://127.0.0.1:5000/groups/' + thisGroupCtrl.currentGid + '/add-participant',
+          data: JSON.stringify({ "uid": uid,
+                                "isAdmin": "false" }),
+            }).then(
+                function(response){
+                    if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                    else{
+                        thisGroupCtrl.showGroupInfo(thisGroupCtrl.groupName, thisGroupCtrl.currentGid);
+                        console.log(response.data);
+                        }
+                })
+        };
+
 
         this.deleteGroup = function(){
             console.log(thisGroupCtrl.currentGid);
