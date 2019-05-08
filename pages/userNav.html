@@ -114,12 +114,12 @@
                       </div>
 
                         <div class="modal-footer">
-                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                     ng-click="userNavCtrl.isUserModalToggled = !userNavCtrl.isUserModalToggled"> Close </button>
-
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                            <button class="btn btn-danger" type="button" data-dismiss="modal"
                                      ng-click="userNavCtrl.isDeleteUserModalToggled = true;
                                      userNavCtrl.isUserModalToggled = false;"> Delete </button>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                         ng-click="userNavCtrl.isUserModalToggled = !userNavCtrl.isUserModalToggled"> Close </button>
+
                         </div>
 
                      </div>
@@ -148,12 +148,12 @@
                       </div>
 
                         <div class="modal-footer">
-                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                     ng-click="userNavCtrl.isDeleteUserModalToggled = false;"> Cancel </button>
-
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                            <button class="btn btn-danger" type="button" data-dismiss="modal"
                                      ng-click="userNavCtrl.deleteContact(userNavCtrl.selected_u_uid);
                                      userNavCtrl.isDeleteUserModalToggled = false;"> Delete </button>
+                             <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                         ng-click="userNavCtrl.isDeleteUserModalToggled = false;"> Cancel </button>
+
                         </div>
 
                      </div>

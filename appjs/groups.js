@@ -14,6 +14,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.isDeleteGroupModalToggled = false;
         this.isDeleteGroupCompleted = false;
         this.isAddParticipantModalToggled = false;
+        this.isRemoveParticipantModalToggled = false;
         this.currentGid = 0;
         this.isActiveUserAdmin = false;
 
@@ -48,19 +49,20 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           }
           };
 
-          this.createUserModal = function(email, fname, lname, phone, uname){
+          this.createUserModal = function(email, fname, lname, phone, uname, uid){
             thisGroupCtrl.selected_u_email = email;
             thisGroupCtrl.selected_u_lname = lname;
             thisGroupCtrl.selected_u_fname = fname;
             thisGroupCtrl.selected_u_phone = phone;
             thisGroupCtrl.selected_u_uname = uname;
+            thisGroupCtrl.selected_u_uid = uid;
           };
 
-        this.showUserModalInfo = function(email, fname, lname, phone, uname){
+        this.showUserModalInfo = function(email, fname, lname, phone, uname, uid){
           if(thisGroupCtrl.isUserModalToggled == false){
            // console.log(thisGroupCtrl.isUserModalToggled);
             thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
-            thisGroupCtrl.createUserModal(email, fname, lname, phone, uname);
+            thisGroupCtrl.createUserModal(email, fname, lname, phone, uname, uid);
           } else {
               thisGroupCtrl.isUserModalToggled = !thisGroupCtrl.isUserModalToggled;
           }
@@ -167,6 +169,22 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           url: 'http://127.0.0.1:5000/groups/' + thisGroupCtrl.currentGid + '/add-participant',
           data: JSON.stringify({ "uid": uid,
                                 "isAdmin": "false" }),
+            }).then(
+                function(response){
+                    if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
+                    else{
+                        thisGroupCtrl.showGroupInfo(thisGroupCtrl.groupName, thisGroupCtrl.currentGid);
+                        console.log(response.data);
+                        }
+                })
+        };
+
+        this.removeParticipant = function(uid){
+            console.log(uid);
+            console.log(thisGroupCtrl.currentGid);
+            $http({
+          method: 'DELETE',
+          url: 'http://127.0.0.1:5000/groups/' + thisGroupCtrl.currentGid + '/delete-participant/' + uid,
             }).then(
                 function(response){
                     if(response.data.hasOwnProperty('Error')){ console.log(response.data.Error); }
