@@ -193,7 +193,7 @@
                         <div class="form-group">
                             <button type="submit" ng-click="groupCtrl.isDeleteGroupModalToggled = false;
                                                             groupCtrl.deleteGroup();
-                                                            chatCtrl.showPostsInGroup(-1,'', '');"
+                                                            chatCtrl.showPostsInGroup(0,'', '');"
                                     class="btn btn-danger">Delete</button>
                         </div>
                       </div>
@@ -290,7 +290,7 @@
                       <div class="modal-footer">
                             <button type="submit" ng-click="groupCtrl.isRemoveParticipantModalToggled = false;
                                                             groupCtrl.removeParticipant(groupCtrl.selected_u_uid);
-                                                            chatCtrl.activeGroupName='';"
+                                                            chatCtrl.showPostsInGroup(0,'','');"
                                     class="btn btn-danger">Remove</button>
 
                          <button class="btn btn-secondary" type="button" data-dismiss="modal"
