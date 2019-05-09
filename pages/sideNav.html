@@ -12,7 +12,7 @@
         </li>
 
         <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID, group.gName, group.gPhoto);
-groupCtrl.groupName = group.gName; groupCtrl.currentGid=group.GID; groupCtrl.showGroupInfo(group.gName, group.GID);">
+                                                                                groupCtrl.showGroupInfo(group.gName, group.GID);">
           <a class="nav-link">
             <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
               {{ group.gName }}

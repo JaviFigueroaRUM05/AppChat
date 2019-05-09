@@ -75,6 +75,7 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
         this.showGroupInfo = function(groupName, gid){
           console.log(groupName)
           thisGroupCtrl.groupName = groupName;
+          thisGroupCtrl.currentGid=gid;
           thisGroupCtrl.groupUsersList.length = 0;
 
           $http({
