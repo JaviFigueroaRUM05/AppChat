@@ -59,11 +59,13 @@
             aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
 
         <div class="modal-dialog modal-success" role="document">
-            <div class="modal-content" style="max-height: 800px; overflow:auto;">
+            <div class="modal-content" style="max-height: 800px;">
+
                 <div class="modal-header">
                     <h2 class="modal-title"> Post Information </h2>
                 </div>
 
+                <div style="max-height: 700px; overflow:auto;">
                 <div class="modal-body">
                     <div class="card-img-container" ng-show="chatCtrl.postInformation[0].mediatype == 'p'">
                         <img class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" style="250px"></img>
@@ -76,7 +78,9 @@
                   <h6> date posted : {{ chatCtrl.postInformation[0].pdate }} </h6>
                   <h6> Posted by : {{ chatCtrl.postInformation[0].uname }} </h6> </br>
                   <h4 ng-show="chatCtrl.postUserReaction.length>0"> Reactions: </h4>
-                  <h6 ng-repeat="user in chatCtrl.postUserReaction" > {{user.uname}} : {{ user.rtype }} </br> </h6>
+                    <div style="max-height: 150px; overflow:auto;">
+                        <h6 ng-repeat="user in chatCtrl.postUserReaction" > {{user.uname}} : {{ user.rtype }} </br> </h6>
+                    </div>
                 </div>
                 <div class="modal-body" ng-show="chatCtrl.currentRepliesList.length>0" >
                     <h4> Replies: </h4>
@@ -99,12 +103,15 @@
                         </li>
                     </ul>
                  </div>
-
+</div>
                 <div class="modal-footer" >
                   <button class="btn btn-secondary" type="button"
                     data-dismiss="modal" ng-click="chatCtrl.isPostModalToggled = false"> Close </button>
                 </div>
+
             </div>
+
+
         </div>
       </div>
   </div>
