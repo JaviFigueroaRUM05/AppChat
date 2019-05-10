@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', '$cookies',
-    function($http, $log, $scope, $cookies) {
+angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', '$cookies', '$firebaseStorage',
+    function($http, $log, $scope, $cookies, $firebaseStorage) {
         var thisMessageCtrl = this;
 
         this.messageList = [];
@@ -144,6 +144,39 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 var dateTime = date+' '+time;
+
+                var storage = firebase.storage();
+                var storageRef = storage.ref();
+                var fileRef = storageRef.child(media.name);
+
+
+                console.log("Let's upload a file!");
+
+              //  $firebaseStorage(filesRef).$put(media);
+
+
+             //     finalRef.put(file).then(function(snapshot){
+             //         console.log('uploading');
+             //     });
+
+                    var dwnURL = "";
+                 var uploadTask = fileRef.put(media).then(snapshot => {
+                       return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
+                   })
+
+                   .then(downloadURL => {
+                      console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+                      dwnURL = downloadURL;
+                      return downloadURL;
+                   })
+
+                   .catch(error => {
+                      // Use to signal error if something goes wrong.
+                      console.log(`Failed to upload file and get link - ${error}`);
+                   });
+
+                console.log(uploadTask);
+
 
                 // Need to figure out who I am
     //            var author = thisMessageCtrl.username;

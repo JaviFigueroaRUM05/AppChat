@@ -1,6 +1,6 @@
 (function() {
 
-    var app = angular.module('AppChat',['ngRoute', 'ngFileUpload', 'ngCookies']);
+    var app = angular.module('AppChat',['firebase','ngRoute', 'ngFileUpload', 'ngCookies']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
         $routeProvider.when('/login', {

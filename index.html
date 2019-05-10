@@ -15,6 +15,11 @@
     <!-- Materialize
     <link href = "css/materialize.css" rel = "stylesheet">
     <script src="js/materialize.js"></script>-->
+
+    <!-- Firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+
     <!-- AngularJS -->
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
@@ -22,6 +27,29 @@
     <script src="js/ng-file-upload.js"></script>
     <script src="js/ng-file-upload-shim.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAGYbUbxrBuRPab14tvi8mepl2h9KNn3Fs",
+        authDomain: "app-chat-5312d.firebaseapp.com",
+        databaseURL: "https://app-chat-5312d.firebaseio.com",
+        projectId: "app-chat-5312d",
+        storageBucket: "app-chat-5312d.appspot.com",
+        messagingSenderId: "822805256657",
+        appId: "1:822805256657:web:35ef5bbaf186df8a"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/chat.css" rel="stylesheet">
