@@ -161,9 +161,9 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
           if(!group_photo){
                group_photo = "media/group_pics/succulenticon.jpg";
                thisGroupCtrl.uploadGroup(group_name, group_photo);
-          }
+          }else{
           thisGroupCtrl.firebaseCreateGroup(group_name, group_photo);
-
+            }
         };
 
 
