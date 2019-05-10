@@ -11,14 +11,13 @@
 
                         <div class="card-header">
                           <div ng-if="chatCtrl.isReply(m.original_post)" ng-init="post_info=chatCtrl.lookUpOriginalPost(m.original_post)">
-                            <a class="nav navbar-nav nav-link" href=""> Reply to: {{ post_info }}  </a>
+                            <a class="nav navbar-nav nav-link" ng-click="chatCtrl.togglePostModal(m.original_post)" href=""> Reply to: {{ post_info }}  </a>
                           </div>
                             <!-- Card Title is the person who write the message -->
 
                             <h4 class="card-title">{{m.uname}}</h4>
                               <a class="icon">  <i ng-click="chatCtrl.togglePostModal(m.postid)" class="fas fa-ellipsis-h"></i></a>
                               <a class="icon">
-                                  <!-- TODO: Sometimes this ng-click doesn't get loaded into the page. Fix bug. could be cache.-->
                                   <i ng-click="chatCtrl.updateReplyTab(m.postid, m.uname, m.message)" class="fas fa-reply"> </i>
                               </a>
                             <h6> date posted: {{m.pdate}} </h6>
