@@ -64,20 +64,46 @@
                 </div>
 
                 <div class="modal-body">
-                  <p> {{ chatCtrl.postInformation[0].media }} </p>
+                    <div class="card-img-container" ng-show="chatCtrl.postInformation[0].mediatype == 'p'">
+                        <img class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" height="250px"></img>
+                    </div>
+                    <div class="card-img-container" ng-show="chatCtrl.postInformation[0].mediatype == 'v'">
+                        <video class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" height="250px"></video>
+                    </div>
                   <h4> {{ chatCtrl.postInformation[0].message }} </h4>
                   <p>  </p>
                   <h6> date posted : {{ chatCtrl.postInformation[0].pdate }} </h6>
                   <h6> Posted by : {{ chatCtrl.postInformation[0].uname }} </h6> </br>
-                  <h4> Reactions: </h4>
+                  <h4 ng-show="chatCtrl.postUserReaction.length>0"> Reactions: </h4>
                   <h6 ng-repeat="user in chatCtrl.postUserReaction" > {{user.uname}} : {{ user.rtype }} </br> </h6>
                 </div>
+                <div class="modal-body" ng-show="chatCtrl.currentRepliesList.length>0">
+                    <h4> Replies: </h4>
+
+                    <ul style="height:300px; overflow:auto;">
+                        <li ng-repeat="reply in chatCtrl.currentRepliesList" class="modal-content" ng-click="chatCtrl.createPostModal(reply.postid)">
+                            <h4 class="modal-title">{{reply.uname}}</h4>
+                            <h6> date posted: {{reply.pdate}} </h6>
+
+                            <div class="modal-body">
+                              <div class="card-img-container" ng-show="reply.mediatype == 'p'">
+                                <img class="card-img" ng-src="{{reply.media}}" height="150px"></img>
+                              </div>
+                                <div class="card-img-container" ng-show="reply.mediatype == 'v'">
+                                <video class="card-img" ng-src="{{reply.media}}" height="150px"></video>
+                              </div>
+                                <!-- Here comes the message text -->
+                                <p> {{reply.message}} </p>
+                            </div>
+                        </li>
+                    </ul>
+                 </div>
 
                 <div class="modal-footer">
                   <button class="btn btn-secondary" type="button"
                     data-dismiss="modal" ng-click="chatCtrl.isPostModalToggled = false"> Close </button>
                 </div>
-            </div>
+            </>
         </div>
       </div>
   </div>

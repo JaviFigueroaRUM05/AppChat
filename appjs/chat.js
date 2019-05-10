@@ -26,6 +26,8 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.OPmessage="";
         this.isReplyTabToggled=false;
 
+        this.currentRepliesList=[];
+
 
 
         this.updateReplyTab = function(OPID, OPuname, OPmessage){
@@ -87,6 +89,19 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             for(user in postReactions){
               thisMessageCtrl.postUserReaction.push(postReactions[user]);
             }
+            thisMessageCtrl.getPostReplies(postid);
+          });
+        };
+
+        this.getPostReplies = function(postid){
+            $http({
+            method: 'GET',
+            url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup + '/posts/' + postid +'/replies'
+          }).then(function(response){
+            console.log(response.data.Replies);
+            thisMessageCtrl.currentRepliesList.length=0;
+            for(message in response.data.Replies)
+                thisMessageCtrl.currentRepliesList.push(response.data.Replies[message]);
           });
         };
 
