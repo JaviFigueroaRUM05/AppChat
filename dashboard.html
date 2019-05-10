@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app="dashboard">
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+
+  <body>
+    <h1>Dashboard</h1>	
+    <button id="trending">Trending Topics</button>
+    <button id="postsPerDay">Posts per Day</button>
+    <button id="repliesPerDay">Replies per Day</button>
+    <button id="likesPerDay">Likes per Day</button>
+    <button id="dislikesPerDay">Dislikes per Day</button>
+    <br>
+
+    <br>Date (YYYY-MM-DD): <input id="activedate" type="text">
+    <button id="activeUsersPerDay">Active users per Day</button><br>
+    
+    <br>User ID: <input id="postsuid" type="text">
+    <button id="postsPerDayByUser">Posts per Day by User</button><br>
+   
+    <br>Post ID: <input id="repliespid" type="text">
+    <button id="repliesToPost">Replies to Post</button><br>
+    
+    <br>Post ID: <input id="reactionspid" type="text">
+    <button id="reactionsToPost">Reactions to Post</button><br>
+    
+    <div id="chart_div"></div>
+    
+    <script type="text/javascript" src="appjs/dashboard.js"></script>
+  </body>
+</html>
