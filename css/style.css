@@ -12545,6 +12545,15 @@ app-root {
   z-index: 1019;
   height: calc(100vh - 55px); }
 
+ .truncate{
+	display: inline-block;
+	max-width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	}
+
+
 @media (min-width: 992px) {
   .sidebar-compact .sidebar {
     -ms-flex: 0 0 150px;

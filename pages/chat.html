@@ -11,8 +11,8 @@
 
                         <div class="card-header">
                           <div ng-if="chatCtrl.isReply(m.original_post)" ng-init="post_info=chatCtrl.lookUpOriginalPost(m.original_post)">
-                            <a class="nav navbar-nav nav-link" ng-click="chatCtrl.togglePostModal(m.original_post)"
-                               style="overflow:hidden;" href=""> Reply to: {{ post_info }}  </a>
+                            <a class="nav navbar-nav nav-link truncate" ng-click="chatCtrl.togglePostModal(m.original_post)"
+                              href="" style="max-width:700px ! important;"> Reply to: {{ post_info }}  </a>
                           </div>
                             <!-- Card Title is the person who write the message -->
 
