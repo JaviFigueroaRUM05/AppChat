@@ -1,29 +1,26 @@
 <div class="wrapper">
-<div  class="sideBarContainer">
-<div class="sidebar">
-    <li class="nav-title-add" ng-click="groupCtrl.isNewGroupModalToggled = true">
-          <span class="nav-title-add"> Add Group </span>
-        <i class="fas fa-plus-square"></i>
-        </li>
+    <div  class="sideBarContainer">
+        <div class="sidebar">
+            <li class="nav-title-add" ng-click="groupCtrl.isNewGroupModalToggled = true">
+                  <span class="nav-title-add"> Add Group </span>
+                    <i class="fas fa-plus-square"></i>
+            </li>
 
-        <li class="nav-title"> Groups
-        </li>
-  <div class="sidebar-nav">
-    <ul class="nav">
-
-
-        <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID, group.gName, group.gPhoto);
-                                                                                groupCtrl.showGroupInfo(group.gName, group.GID);">
-          <a class="nav-link">
-            <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
-              <p class="truncate" style="max-width:95px ! important; position:relative; top:20px;">{{ group.gName }}</p>
-              <i class="fas fa-angle-right" ng-click="groupCtrl.isBarToggled= !groupCtrl.isBarToggled;"></i>
-            </a>
-        </li>
-    </ul>
-  </div>
-</div>
-</div>
+            <li class="nav-title"> Groups</li>
+              <div class="sidebar-nav">
+                <ul class="nav">
+                    <li ng-repeat="group in groupCtrl.groupList" class="nav-item" ng-click="chatCtrl.showPostsInGroup(group.GID, group.gName, group.gPhoto);
+                                                                                            groupCtrl.showGroupInfo(group.gName, group.GID);">
+                      <a class="nav-link">
+                        <img ng-src="{{ group.gPhoto || 'media/group_pics/succulenticon.jpg' }}" class="avatar img-avatar" ></img>
+                          <p class="truncate" style="max-width:95px ! important; position:relative; top:20px;">{{ group.gName }}</p>
+                          <i class="fas fa-angle-right" ng-click="groupCtrl.isBarToggled= !groupCtrl.isBarToggled;"></i>
+                      </a>
+                    </li>
+                </ul>
+              </div>
+        </div>
+    </div>
 
 <div class="sideBarContainer" ng-show="groupCtrl.isBarToggled">
     <div class="sidebar">
