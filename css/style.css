@@ -5557,6 +5557,7 @@ button.close {
   overflow: hidden; }
 
 .modal {
+ max-height: calc(500vh - 230px);
   position: fixed;
   top: 0;
   right: 0;
@@ -5573,6 +5574,7 @@ button.close {
 .modal-dialog {
   position: relative;
   width: auto;
+  max-height: 580px;
   margin: 0.5rem;
   pointer-events: none; }
   .modal.fade .modal-dialog {
@@ -5636,7 +5638,7 @@ button.close {
   line-height: 1.5; }
 
 .modal-body {
-
+  max-height: calc(200vh - 1000px);
   position: relative;
   -ms-flex: 1 1 auto;
       flex: 1 1 auto;
