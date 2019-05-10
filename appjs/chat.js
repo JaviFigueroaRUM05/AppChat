@@ -14,6 +14,8 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.postUserReaction = [];
         this.test = false;
 
+         var downURL = "";
+
         this.userNavBarToggled = false;
         this.fullName="";
         this.username="";
@@ -145,6 +147,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 var dateTime = date+' '+time;
 
+                thisMessageCtrl.firebaseUploadPost(dateTime, msg, mediaType, media);
+
+               }
+        };
+
+        this.firebaseUploadPost = function(dateTime, msg, mediaType, media){
                 var storage = firebase.storage();
                 var storageRef = storage.ref();
                 var fileRef = storageRef.child(media.name);
@@ -152,21 +160,15 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
                 console.log("Let's upload a file!");
 
-              //  $firebaseStorage(filesRef).$put(media);
-
-
-             //     finalRef.put(file).then(function(snapshot){
-             //         console.log('uploading');
-             //     });
-
-                    var dwnURL = "";
                  var uploadTask = fileRef.put(media).then(snapshot => {
                        return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
                    })
 
-                   .then(downloadURL => {
+                   .then(function(downloadURL) {
                       console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
-                      dwnURL = downloadURL;
+                      this.downURL = downloadURL;
+                     console.log(this.downURL);
+                           thisMessageCtrl.upload(dateTime, msg, mediaType, downloadURL);
                       return downloadURL;
                    })
 
@@ -175,22 +177,19 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                       console.log(`Failed to upload file and get link - ${error}`);
                    });
 
-                console.log(uploadTask);
+                   console.log(this.downURL);
+                   console.log("hey");
+        };
 
-
-                // Need to figure out who I am
-    //            var author = thisMessageCtrl.username;
-    //            var nextId = thisMessageCtrl.counter++;
-               // thisMessageCtrl.messageList.push({"message" : msg, "uname" : author, "pdate":  dateTime, "media": pic, "like" : 2, "dislike" : 3});
-
-                if(!thisMessageCtrl.isReplyTabToggled){ // If not a reply, create a post
+         this.upload = function(dateTime, msg, mediaType, downURL){
+            if(!thisMessageCtrl.isReplyTabToggled){ // If not a reply, create a post
                      $http({
                           method: 'POST',
                           url: 'http://127.0.0.1:5000/groups/' + thisMessageCtrl.activeGroup +'/create-post',
                           data: JSON.stringify({ "pdate": dateTime,
                                                 "message": msg,
                                                  "mediaType": mediaType,
-                                                 "media":pic,
+                                                 "media":downURL,
                                                  "uid": $cookies.get('uid')}),
                             }).then(
                                 function(response){
@@ -227,8 +226,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                                         }
                                 })
                 }
-               }
+
+
         };
+
+
+
 
 	this.isLiked = function(message) {
 	    $http({
