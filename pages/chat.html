@@ -11,7 +11,8 @@
 
                         <div class="card-header">
                           <div ng-if="chatCtrl.isReply(m.original_post)" ng-init="post_info=chatCtrl.lookUpOriginalPost(m.original_post)">
-                            <a class="nav navbar-nav nav-link" ng-click="chatCtrl.togglePostModal(m.original_post)" href=""> Reply to: {{ post_info }}  </a>
+                            <a class="nav navbar-nav nav-link" ng-click="chatCtrl.togglePostModal(m.original_post)"
+                               style="overflow:hidden;" href=""> Reply to: {{ post_info }}  </a>
                           </div>
                             <!-- Card Title is the person who write the message -->
 
@@ -58,14 +59,14 @@
             aria-labelledby=myModalLabel" style="display:block; padding-left:12px;">
 
         <div class="modal-dialog modal-success" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="max-height: 800px; overflow:auto;">
                 <div class="modal-header">
                     <h2 class="modal-title"> Post Information </h2>
                 </div>
 
                 <div class="modal-body">
                     <div class="card-img-container" ng-show="chatCtrl.postInformation[0].mediatype == 'p'">
-                        <img class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" height="250px"></img>
+                        <img class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" style="250px"></img>
                     </div>
                     <div class="card-img-container" ng-show="chatCtrl.postInformation[0].mediatype == 'v'">
                         <video class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" height="250px"></video>
@@ -77,7 +78,7 @@
                   <h4 ng-show="chatCtrl.postUserReaction.length>0"> Reactions: </h4>
                   <h6 ng-repeat="user in chatCtrl.postUserReaction" > {{user.uname}} : {{ user.rtype }} </br> </h6>
                 </div>
-                <div class="modal-body" ng-show="chatCtrl.currentRepliesList.length>0">
+                <div class="modal-body" ng-show="chatCtrl.currentRepliesList.length>0" >
                     <h4> Replies: </h4>
 
                     <ul style="overflow:auto;">
@@ -93,17 +94,17 @@
                                 <video class="card-img" ng-src="{{reply.media}}" height="150px"></video>
                               </div>
                                 <!-- Here comes the message text -->
-                                <p> {{reply.message}} </p>
+                                <p style="word-wrap:break-word; max-height:50px; overflow:auto;"> {{reply.message}} </p>
                             </div>
                         </li>
                     </ul>
                  </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer" >
                   <button class="btn btn-secondary" type="button"
                     data-dismiss="modal" ng-click="chatCtrl.isPostModalToggled = false"> Close </button>
                 </div>
-            </>
+            </div>
         </div>
       </div>
   </div>
