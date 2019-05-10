@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scope', '$cookies',
-    function($http, $log, $scope, $cookies) {
+angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scope', '$cookies', '$firebaseStorage',
+    function($http, $log, $scope, $cookies, $firebaseStorage) {
         var thisGroupCtrl = this;
 
         this.groupList = [];
@@ -107,18 +107,41 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
             thisGroupCtrl.newText = "";
         };
 
+        // method links with firebase to store the group picture and proceed to execute the query once promise is resolved
+        this.firebaseCreateGroup = function(group_name, media){
+                var storage = firebase.storage();
+                var storageRef = storage.ref();
+                var fileRef = storageRef.child(media.name);
 
-        this.createGroup = function(group_name, group_photo){
-          console.log(group_photo);
-          if(group_name){
-              if (!group_photo){ group_photo_name = "succulenticon.jpg"; }
-              else { group_photo_name = group_photo;}
 
+                console.log("Let's upload a file!");
+
+                 var uploadTask = fileRef.put(media).then(snapshot => {
+                       return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
+                   })
+
+                   .then(function(downloadURL) {
+                      console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+
+                      thisGroupCtrl.uploadGroup(group_name, downloadURL);
+                      return downloadURL;
+                   })
+
+                   .catch(error => {
+                      // Use to signal error if something goes wrong.
+                      console.log(`Failed to upload file and get link - ${error}`);
+                   });
+
+                   console.log(this.downURL);
+                   console.log("hey");
+        };
+
+        this.uploadGroup = function(group_name, group_photo){
               $http({
                   method: 'POST',
                   url: 'http://127.0.0.1:5000/groups/create',
                   data: JSON.stringify({ "gname": group_name,
-                                        "gphoto": "media/group_pics/" + group_photo_name }),
+                                        "gphoto": group_photo }),
                     }).then(
                         function(response){
 
@@ -129,8 +152,19 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
                                 thisGroupCtrl.isCreateGroupCompleted = true;
                                 thisGroupCtrl.isNewGroupModalToggled = false;
                                 }
-                        })
-        }};
+                             })
+        };
+
+
+        this.createGroup = function(group_name, group_photo){
+          console.log(group_photo);
+          if(!group_photo){
+               group_photo = "media/group_pics/succulenticon.jpg";
+               thisGroupCtrl.uploadGroup(group_name, group_photo);
+          }
+          thisGroupCtrl.firebaseCreateGroup(group_name, group_photo);
+
+        };
 
 
         this.addSelfAsAdmin = function(gid){

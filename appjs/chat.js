@@ -147,7 +147,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 var dateTime = date+' '+time;
 
-                thisMessageCtrl.firebaseUploadPost(dateTime, msg, mediaType, media);
+                if(!media){
+                    thisMessageCtrl.upload(dateTime, msg, mediaType, "");
+                }else{
+                    thisMessageCtrl.firebaseUploadPost(dateTime, msg, mediaType, media);
+                }
+
 
                }
         };
@@ -177,8 +182,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                       console.log(`Failed to upload file and get link - ${error}`);
                    });
 
-                   console.log(this.downURL);
-                   console.log("hey");
         };
 
          this.upload = function(dateTime, msg, mediaType, downURL){
@@ -211,7 +214,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                           data: JSON.stringify({ "pdate": dateTime,
                                                 "message": msg,
                                                  "mediaType": mediaType,
-                                                 "media":pic,
+                                                 "media": downURL,
                                                  "uid": $cookies.get('uid'),
                                                  "opid": thisMessageCtrl.OPID}),
                             }).then(
