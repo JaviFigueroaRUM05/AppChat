@@ -70,7 +70,7 @@
                     <div class="card-img-container" ng-show="chatCtrl.postInformation[0].mediatype == 'v'">
                         <video class="card-img" ng-src="{{chatCtrl.postInformation[0].media}}" height="250px"></video>
                     </div>
-                  <h4> {{ chatCtrl.postInformation[0].message }} </h4>
+                  <h4 style="word-wrap:break-word; max-height:100px; overflow:auto;"> {{ chatCtrl.postInformation[0].message }} </h4>
                   <p>  </p>
                   <h6> date posted : {{ chatCtrl.postInformation[0].pdate }} </h6>
                   <h6> Posted by : {{ chatCtrl.postInformation[0].uname }} </h6> </br>
@@ -80,7 +80,7 @@
                 <div class="modal-body" ng-show="chatCtrl.currentRepliesList.length>0">
                     <h4> Replies: </h4>
 
-                    <ul style="height:300px; overflow:auto;">
+                    <ul style="overflow:auto;">
                         <li ng-repeat="reply in chatCtrl.currentRepliesList" class="modal-content" ng-click="chatCtrl.createPostModal(reply.postid)">
                             <h4 class="modal-title">{{reply.uname}}</h4>
                             <h6> date posted: {{reply.pdate}} </h6>
