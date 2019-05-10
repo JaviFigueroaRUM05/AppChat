@@ -25,8 +25,11 @@
                         </div>
 
                         <div class="card-body">
-                          <div class="card-img-container">
+                          <div class="card-img-container" ng-show="m.mediatype == 'p'">
                             <img class="card-img" ng-src="{{m.media}}"></img>
+                          </div>
+                            <div class="card-img-container" ng-show="m.mediatype == 'v'">
+                            <video class="card-img" ng-src="{{m.media}}" controls></video>
                           </div>
                             <!-- Here comes the message text -->
                             <p> {{m.message}} </p>

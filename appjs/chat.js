@@ -139,6 +139,11 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                             media.name.includes(".png")){
                                  mediaType="p";
                     }
+                    else if(media.name.includes(".mp4") ||
+                        media.name.includes(".mpeg") ||
+                            media.name.includes(".avi")){
+                                 mediaType="v";
+                    }
                 }
                 var today = new Date();
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();

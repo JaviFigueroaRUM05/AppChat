@@ -12,10 +12,11 @@
 </div>
 <div ng-show="chatCtrl.activeGroup" class="app-footer" >
     <img ngf-thumbnail="picFile">
+    <video ngf-thumbnail="picFile" width="150px"></video>
         <button class="btn btn-warning" ng-click="picFile = null" ng-show="picFile">Remove</button>
     </img>
     <button class= "btn btn-success-send-bubble mr-2 ml-2" ngf-select ng-model="picFile" name="file"
-                 accept="media/group_pics/*" ngf-max-size="2MB" required
+                 accept="media/group_pics/*"  required
                  ngf-model-invalid="errorFile">
       <i class="far fa-image" ></i>
     </button>
