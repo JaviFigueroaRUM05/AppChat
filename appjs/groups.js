@@ -158,7 +158,9 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$scop
 
         this.createGroup = function(group_name, group_photo){
           console.log(group_photo);
-          if(!group_photo){
+          if(!group_photo || !(group_photo.name.includes(".jpg") ||
+                                group_photo.name.includes(".jpeg") ||
+                                group_photo.name.includes(".png"))){
                group_photo = "media/group_pics/succulenticon.jpg";
                thisGroupCtrl.uploadGroup(group_name, group_photo);
           }else{
